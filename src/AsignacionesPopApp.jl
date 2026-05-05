@@ -38,7 +38,7 @@ module AsignacionesPopApp
         escuelas = pick_file()
         println("Archivo selecionado: ", escuelas)
         println("Seleccione el archivo de actividades.")
-        pick_file()
+        actividades = pick_file()
         println("Archivo selecionado: ", actividades)
         return main(escuelas, actividades)
     end
