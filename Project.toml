@@ -1,0 +1,7 @@
+name = "AsignacionesPopApp"
+uuid = "9cf88b68-091b-4e16-8f63-6bed0de31c60"
+authors = ["Ignacio Ojea <iojea@dm.uba.ar>"]
+version = "0.0.1"
+
+[compat]
+julia = "1.12"
