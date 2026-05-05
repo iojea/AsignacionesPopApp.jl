@@ -35,10 +35,10 @@ module AsignacionesPopApp
 
     function (@main)(ARGS)
         println("Seleccione el archivo de escuelas.")
-        escuelas = NativeFileDialog.file_pick()
+        escuelas = pick_file()
         println("Archivo selecionado: ", escuelas)
         println("Seleccione el archivo de actividades.")
-        actividades = file_pick()
+        pick_file()
         println("Archivo selecionado: ", actividades)
         return main(escuelas, actividades)
     end
