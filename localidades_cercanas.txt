@@ -1,0 +1,41 @@
+todos_los_combos_con_capacidad(minimo) printea todos los combos que tienen "minimo" o mas de capacidad
+
+cantidad_de_conexiones(ins) devuelve la cantidad de conexiones de "ins" y si fue o no asignada
+
+Buenos Aires
+
+Vicente López
+
+Olivos
+
+San Isidro
+
+Martínez
+
+San Fernando
+
+Tigre
+
+San Martín
+
+Tres de Febrero
+
+Ramos Mejía
+
+San Justo
+
+Morón
+
+Ituzaingó
+
+Avellaneda
+
+Lanús
+
+Lomas de Zamora
+
+Quilmes
+
+
+#-----------------------------------------------------------------------
+

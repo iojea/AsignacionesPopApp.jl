@@ -1,0 +1,7 @@
+cosas que debe contener el excel de actividades
+
+  Dia || Tipo de actividad || Horario de inicio || Horario de fin || Turno || Capacidad || label_actividad
+lunes?	 Charla                                                      mañana		  "puede ser el nombre de la actividad o seccion"
+23/12?	 Stand                                                       tarde
+	 Taller
+	 Visita

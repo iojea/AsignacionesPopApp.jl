@@ -1,0 +1,47 @@
+Hay que decidir que corroboraciones vamos a realizar para evitar errores.
+
+Hay que cambiar todo a mayúsculas al llamar a los diccionarios
+
+
+orientación ---> "tipo de institucion educativa y orientacion"
+curso --> "curso que asistira"
+vulnerabilidad ---> "porcentaje aproximado de estudiantes de familias de bajos recursos"
+turno solicitado .
+partido ---> "ubicacion de la escuela"
+fecha solicitada
+CUE  ---> "codigo unico de escuela (cue)"
+DNI_Docente ---> "dni del/la docente responsable de la visita" .
+Alumnos --> "cantidad de alumnos que asistiran"
+
+["fecha solicitada", 
+"tipo de gestion de la institucion educativa", 
+"cantidad de alumnos que asistiran",
+ "curso que asistira", 
+"porcentaje aproximado de estudiantes de familias de bajos recursos", 
+"dni del/la docente responsable de la visita"]
+
+2023:
+	9:30	1 charla(400)	2 stands(250 personas)  2 talleres(35 p c/u)		
+	10:30   		2 stands(250 personas)  4 talleres(35 p c/u)	3 visitas guiadas (35 c/u)
+	11:30	1 charla(400)	2 stands(250 personas)  3 talleres(35 p c/u)	3 visitas guiadas (35 c/u)
+	13:00			2 stands(250 personas)
+	14:00	1 charla(400)	2 stands(250 personas)  2 talleres(35 p c/u)	3 visitas guiadas (35 c/u)
+	15:00			2 stands(250 personas)  2 talleres(35 p c/u)	3 visitas guiadas (35 c/u)
+
+2024:
+	9:30	1 charla(400)	2 stands(300 personas)  3 talleres(35 p c/u)		
+	10:30   1 charla(400)	2 stands(500 personas)  4 talleres(35 p c/u)	4 visitas guiadas (35 c/u)
+	11:30	1 charla(400)	2 stands(400 personas)  3 talleres(35 p c/u)	2 visitas guiadas (35 c/u)
+	13:00			2 stands(400 personas)
+	14:00	1 charla(400)	2 stands(300 personas)  3 talleres(35 p c/u)	2 visitas guiadas (35 c/u)
+	15:00			2 stands(450 personas)  2 talleres(35 p c/u)	4 visitas guiadas (35 c/u)
+
+
+2025:
+	9:30	1 charla(480)	2 stands(300 personas)  5 talleres 75 personas		
+	10:30   1 charla(480)	2 stands(250 personas)  4 talleres(75 p c/u)	4 visitas guiadas (180 c/u)
+	11:30	1 charla(480)	2 stands(250 personas)  3 talleres(75 p c/u)	2 visitas guiadas (180 c/u)
+	13:00			2 stands(200 personas)
+	14:00	1 charla(400)	2 stands(200 personas)  3 talleres(75 p c/u)	2 visitas guiadas (180 c/u)
+	15:00			2 stands(200 personas)  2 talleres(75 p c/u)	4 visitas guiadas (180 c/u)
+	
