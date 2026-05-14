@@ -37,7 +37,9 @@ module AsignacionesPopApp
 
     function (@main)(ARGS)
 
-        screenshot(entorno(), "Asignación", 840, 400)
+        Fugl.run(entorno,title = "Asignación", 
+                    window_width_px = 800, 
+                    window_height_px = 600)
         return nothing
     end
 
