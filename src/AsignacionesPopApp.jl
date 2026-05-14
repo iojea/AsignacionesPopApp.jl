@@ -23,6 +23,8 @@ module AsignacionesPopApp
     using XLSX
     using SparseArrays
     using NativeFileDialog
+    using Fugl
+
 
     include("data.jl")
     include("pre-filtrado.jl")
@@ -34,13 +36,31 @@ module AsignacionesPopApp
 
 
     function (@main)(ARGS)
-        println("Seleccione el archivo de escuelas.")
-        escuelas = pick_file()
-        println("Archivo selecionado: ", escuelas)
-        println("Seleccione el archivo de actividades.")
-        actividades = pick_file()
-        println("Archivo selecionado: ", actividades)
-        return main(escuelas, actividades)
+        tfesc = TextField(EditorState("escuelas"))
+        tfact = TextField(EditorState("actividades"))
+
+        return Container(
+            Column(
+                Container(
+                    tfesc,
+                    TextButton("Seleccionar", on_click() -> abrir(tfesc))
+                ),
+                Container(
+                    tfact,
+                    TextButton("Seleccionar", on_click() -> abrir(tfact))
+                ),
+                Container(
+                    TextButton("Asignar", on_click() -> asigna(tfesc, tfact))
+                )
+            )
+        )
     end
 
+    function abrir(tf)
+        seleccion = pick_file()
+        return tf.state = EditorState(seleccion)
+    end
+    function asigna(tfesc, tfact)
+        return main(tfesc.state.text, tfact.state.text)
+    end
 end
