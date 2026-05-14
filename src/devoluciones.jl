@@ -15,8 +15,8 @@ function marcar_inscripciones_ya_asignadas(i, dfs, dia)
 end
 
 function construir_df_combos(asignacion, combos)
-    filas_asignadas = sort(collect(keys(asignacion)))
-    n_asig = length(filas_asignadas)
+    filas_as = sort(collect(keys(asignacion)))
+    n_asig = length(filas_as)
     max_act = isempty(combos) ? 0 : maximum(length.(combos))
         df_combo[!, Symbol("Actividad$(k)_Tipo")] = Vector{Union{Missing, String}}(missing, n_asig)
         df_combo[!, Symbol("Actividad$(k)_Inicio")] = Vector{Union{Missing, String}}(missing, n_asig)
@@ -24,7 +24,7 @@ function construir_df_combos(asignacion, combos)
         df_combo[!, Symbol("Actividad$(k)_Nombre")] = Vector{Union{Missing, String}}(missing, n_asig)
     end
 
-    for (r, i) in enumerate(filas_asignadas)
+    for (r, i) in enumerate(filas_as)
         idx_combo = asignacion[i]
 
         if idx_combo <= 0 || idx_combo > length(combos)
