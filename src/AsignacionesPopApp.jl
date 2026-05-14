@@ -39,6 +39,11 @@ module AsignacionesPopApp
         tfesc = TextField(EditorState("escuelas"))
         tfact = TextField(EditorState("actividades"))
 
+        entorno()
+        return nothing
+    end
+
+    function entorno()
         return Container(
             Column(
                 Container(
@@ -63,7 +68,6 @@ module AsignacionesPopApp
             )
         )
     end
-
     function abrir(tf)
         seleccion = pick_file()
         return tf.state = EditorState(seleccion)
