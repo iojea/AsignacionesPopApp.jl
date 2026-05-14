@@ -37,7 +37,7 @@ module AsignacionesPopApp
 
     function (@main)(ARGS)
 
-        entorno()
+        screenshot(entorno(), "Asignación", 840, 400)
         return nothing
     end
 
