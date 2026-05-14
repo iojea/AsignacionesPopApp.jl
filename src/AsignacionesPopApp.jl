@@ -42,12 +42,20 @@ module AsignacionesPopApp
         return Container(
             Column(
                 Container(
-                    tfesc,
-                    TextButton("Seleccionar", on_click = () -> abrir(tfesc))
+                    Row(
+                        tfesc,
+                        TextButton(
+                            "Seleccionar", on_click = () -> abrir(tfesc)
+                        )
+                    )
                 ),
                 Container(
-                    tfact,
-                    TextButton("Seleccionar", on_click = () -> abrir(tfact))
+                    Row(
+                        tfact,
+                        TextButton(
+                            "Seleccionar", on_click = () -> abrir(tfact)
+                        )
+                    )
                 ),
                 Container(
                     TextButton("Asignar", on_click = () -> asigna(tfesc, tfact))
