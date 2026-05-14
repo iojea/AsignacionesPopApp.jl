@@ -161,4 +161,6 @@ function main(ruta_inscripciones, ruta_actividades, dia = 0)
     else
         error("dia invalido: $dia")
     end
+    return nothing
+
 end
