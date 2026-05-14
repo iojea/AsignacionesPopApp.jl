@@ -2,7 +2,7 @@ function modificar_df_actividades!(df_actividades, actividades)
     for act in actividades
         df_actividades.capacidad[act.id] = act.capacidad[]
     end
-    return
+    return nothing
 end
 
 function marcar_inscripciones_ya_asignadas(i, dfs, dia)
@@ -11,18 +11,17 @@ function marcar_inscripciones_ya_asignadas(i, dfs, dia)
     for df in dfs
         df[df.CUE .== CUEr, "Estado"] .= "CUE asignado al día $dia"
     end
-    return
+    return nothing
 end
 
 function construir_df_combos(asignacion, combos)
     filas_as = sort(collect(keys(asignacion)))
     n_asig = length(filas_as)
     max_act = isempty(combos) ? 0 : maximum(length.(combos))
-        df_combo[!, Symbol("Actividad$(k)_Tipo")] = Vector{Union{Missing, String}}(missing, n_asig)
-        df_combo[!, Symbol("Actividad$(k)_Inicio")] = Vector{Union{Missing, String}}(missing, n_asig)
-        df_combo[!, Symbol("Actividad$(k)_Fin")] = Vector{Union{Missing, String}}(missing, n_asig)
-        df_combo[!, Symbol("Actividad$(k)_Nombre")] = Vector{Union{Missing, String}}(missing, n_asig)
-    end
+    df_combo[!, Symbol("Actividad$(k)_Tipo")] = Vector{Union{Missing, String}}(missing, n_asig)
+    df_combo[!, Symbol("Actividad$(k)_Inicio")] = Vector{Union{Missing, String}}(missing, n_asig)
+    df_combo[!, Symbol("Actividad$(k)_Fin")] = Vector{Union{Missing, String}}(missing, n_asig)
+    df_combo[!, Symbol("Actividad$(k)_Nombre")] = Vector{Union{Missing, String}}(missing, n_asig)
 
     for (r, i) in enumerate(filas_as)
         idx_combo = asignacion[i]
