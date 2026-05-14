@@ -36,14 +36,14 @@ module AsignacionesPopApp
 
 
     function (@main)(ARGS)
-        tfesc = TextField(EditorState("escuelas"))
-        tfact = TextField(EditorState("actividades"))
 
         entorno()
         return nothing
     end
 
     function entorno()
+        tfesc = TextField(EditorState("escuelas"))
+        tfact = TextField(EditorState("actividades"))
         return Container(
             Column(
                 Container(
