@@ -92,7 +92,7 @@ module AsignacionesPopApp
                             container_style = normal_style,
                             hover_style = hover_style,
                             pressed_style = pressed_style,
-                            interaction_state = button_interaction[],
+                            interaction_state = button1_interaction[],
                             on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
                         )
                     )
@@ -106,7 +106,7 @@ module AsignacionesPopApp
                             container_style = normal_style,
                             hover_style = hover_style,
                             pressed_style = pressed_style,
-                            interaction_state = button_interaction[],
+                            interaction_state = button2_interaction[],
                             on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
                         )
                     )
@@ -118,7 +118,7 @@ module AsignacionesPopApp
                             container_style = normal_style,
                             hover_style = hover_style,
                             pressed_style = pressed_style,
-                            interaction_state = button_interaction[],
+                            interaction_state = button3_interaction[],
                             on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
                         )
                         )
