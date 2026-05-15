@@ -79,8 +79,8 @@ module AsignacionesPopApp
             color = Vec4f(1.0, 1.0, 1.0, 1.0),
             size_points = 16
         )
-        tfesc = TextField(EditorState("escuelas"),text_style=text_style)
-        tfact = TextField(EditorState("actividades"),text_style=text_tyle)
+        tfesc = TextField(EditorState("escuelas"))
+        tfact = TextField(EditorState("actividades"))
         return Container(
             Column(
                 Container(
