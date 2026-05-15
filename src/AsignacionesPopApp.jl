@@ -114,7 +114,7 @@ module AsignacionesPopApp
                 Container(
                         TextButton(
                             "Seleccionar",
-                            on_click = () -> nothing
+                            on_click = () -> nothing,
                             container_style = normal_style,
                             hover_style = hover_style,
                             pressed_style = pressed_style,
