@@ -120,8 +120,9 @@ module AsignacionesPopApp
                             pressed_style = pressed_style,
                             interaction_state = button_interaction[],
                             on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
+                        )
+                        )
                 )
-            )
         )
     end
     function abrir(tf)
