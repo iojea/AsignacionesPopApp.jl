@@ -75,10 +75,10 @@ module AsignacionesPopApp
             corner_radius = 6.0f0
         )
 
-        text_style = TextStyle(
-            color = Vec4f(1.0, 1.0, 1.0, 1.0),
-            size_points = 16
-        )
+        # text_style = TextStyle(
+        #     color = Vec4f(1.0, 1.0, 1.0, 1.0),
+        #     size_points = 16
+        # )
         tfesc = TextField(EditorState("escuelas"))
         tfact = TextField(EditorState("actividades"))
         return Container(
