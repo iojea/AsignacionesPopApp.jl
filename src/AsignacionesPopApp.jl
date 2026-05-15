@@ -88,7 +88,7 @@ module AsignacionesPopApp
                         tfesc,
                         TextButton(
                             "Seleccionar",
-                            on_click = () -> tfesc.state = EditorState(pick_file()),,
+                            on_click = () -> tfesc.state = EditorState(pick_file()),
                             container_style = normal_style,
                             hover_style = hover_style,
                             pressed_style = pressed_style,
