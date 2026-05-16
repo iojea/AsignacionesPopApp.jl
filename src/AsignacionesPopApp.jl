@@ -37,16 +37,8 @@ module AsignacionesPopApp
 
     function (@main)(ARGS)
 
-        Fugl.run(entorno,title = "Asignación", 
-                    window_width_px = 600, 
-                    window_height_px = 300)
-        return nothing
-    end
-
-    function entorno()
         button1_interaction = Ref(InteractionState())
         button2_interaction = Ref(InteractionState())
-        button3_interaction = Ref(InteractionState())
 
         # Normal button style
         normal_style = ContainerStyle(
@@ -79,56 +71,43 @@ module AsignacionesPopApp
         #     color = Vec4f(1.0, 1.0, 1.0, 1.0),
         #     size_points = 16
         # )
-        tfesc = TextField(EditorState("escuelas"))
-        tfact = TextField(EditorState("actividades"))
-        return Container(
-            Column(
-                Container(
-                    Row(
-                        tfesc,
-                        TextButton(
-                            "Seleccionar",
-                            on_click = () -> tfesc.state = EditorState(pick_file()),
-                            container_style = normal_style,
-                            hover_style = hover_style,
-                            pressed_style = pressed_style,
-                            interaction_state = button1_interaction[],
-                            on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
+        dir = Ref("")
+        function entorno()
+            Container(
+                Column(
+                    Container(
+                        Row(
+                            IconButton("../assets/folder.png",
+                                on_click = () -> dir[] = NativeFileDialog.pick_file(),
+                                container_style = normal_style,
+                                hover_style = hover_style,
+                                pressed_style = pressed_style,
+                                interaction_state = button1_interaction[],
+                                on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
+                            ),
+                            Fugl.Text(dir[])
                         )
+                    ),
+                    Container(
+                            TextButton(
+                                "Asignar!",
+                                on_click = () -> nothing,
+                                container_style = normal_style,
+                                hover_style = hover_style,
+                                pressed_style = pressed_style,
+                                interaction_state = button2_interaction[],
+                                on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                            )
+                            )
                     )
-                ),
-                Container(
-                    Row(
-                        tfact,
-                        TextButton(
-                            "Seleccionar",
-                            on_click = () -> tfact.state = EditorState(pick_file()),
-                            container_style = normal_style,
-                            hover_style = hover_style,
-                            pressed_style = pressed_style,
-                            interaction_state = button2_interaction[],
-                            on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                        )
-                    )
-                ),
-                Container(
-                        TextButton(
-                            "Seleccionar",
-                            on_click = () -> nothing,
-                            container_style = normal_style,
-                            hover_style = hover_style,
-                            pressed_style = pressed_style,
-                            interaction_state = button3_interaction[],
-                            on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                        )
-                        )
-                )
-        )
+            )
+        end
+        Fugl.run(entorno,title = "Asignación", 
+                    window_width_px = 400, 
+                    window_height_px = 200)
+        return nothing
     end
-    function abrir(tf)
-        seleccion = pick_file()
-        return tf.state = EditorState(seleccion)
-    end
+
     function asigna(tfesc, tfact)
         return main(tfesc.state.text, tfact.state.text)
     end
