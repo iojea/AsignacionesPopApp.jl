@@ -73,6 +73,7 @@ module AsignacionesPopApp
         # )
         dir = Ref("")
         function entorno()
+            println(pwd())
             Container(
                 Column(
                     Container(
