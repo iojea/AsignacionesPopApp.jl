@@ -73,34 +73,24 @@ module AsignacionesPopApp
         # )
         dir = Ref("")
         function entorno()
-            println(pwd())
+            apppath = Base.pathof(AsignacionesPopApp)
+            im      = joinpath([joinpath(apppath[1:end-1]),"assets/folder.png"])
             Container(
                 Column(
                     Container(
-                        Row(
-                            IconButton("../assets/folder.png",
-                                on_click = () -> dir[] = NativeFileDialog.pick_file(),
-                                container_style = normal_style,
-                                hover_style = hover_style,
-                                pressed_style = pressed_style,
-                                interaction_state = button1_interaction[],
-                                on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                            ),
-                            Fugl.Text(dir[])
+                        Column(
+                            Fugl.Text("Escuelas"),
+                            IntrinsicRow(
+                                FixedSize(IconButton(im,
+                                    on_click = () -> dir[] = NativeFileDialog.pick_file(),
+                                    interaction_state = button1_interaction[],
+                                    on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
+                                    ),100,100)
+                                ),
+                                Fugl.Text(dir[])
+                            )
                         )
                     ),
-                    Container(
-                            TextButton(
-                                "Asignar!",
-                                on_click = () -> nothing,
-                                container_style = normal_style,
-                                hover_style = hover_style,
-                                pressed_style = pressed_style,
-                                interaction_state = button2_interaction[],
-                                on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                            )
-                            )
-                    )
             )
         end
         Fugl.run(entorno,title = "Asignación", 
