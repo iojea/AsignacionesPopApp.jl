@@ -118,7 +118,7 @@ module AsignacionesPopApp
                             )
                         ),
                     ),
-                HLine(style=SeparatorStyle(line_width=2.0f0, color=Vec4{Float32}(2.0f0, 2.0f0, 2.0f0, 1.0f0))),
+                Container(HLine(style=SeparatorStyle(line_width=2.0f0, color=Vec4{Float32}(2.0f0, 2.0f0, 2.0f0, 1.0f0)))),
                 Container(
                     Column(
                         Fugl.Text("Preprocesamiento",horizontal_align=:left,style=header_style),
@@ -138,8 +138,8 @@ module AsignacionesPopApp
                 ))
         end
         Fugl.run(entorno,title = "Asignación", 
-                    window_width_px = 400, 
-                    window_height_px = 200)
+                    window_width_px = 800, 
+                    window_height_px = 400)
         return nothing
     end
 
