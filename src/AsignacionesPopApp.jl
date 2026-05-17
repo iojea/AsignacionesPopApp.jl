@@ -85,7 +85,7 @@ module AsignacionesPopApp
                         Fugl.Text("Escuelas",horizontal_align=:left,style=header_style),
                         IntrinsicRow(
                             FixedSize(IconButton(im,
-                                on_click = () -> esc[] = NativeFileDialog.pick_file()
+                                on_click = () -> esc[] = NativeFileDialog.pick_file(),
                                 container_style = normal_style,
                                 hover_style = hover_style,
                                 pressed_style = pressed_style,
