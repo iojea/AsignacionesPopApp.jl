@@ -42,8 +42,8 @@ module AsignacionesPopApp
 
         # Normal button style
         normal_style = ContainerStyle(
-            background_color = Vec4f(0.2, 0.4, 0.8, 1.0),
-            border_color = Vec4f(0.1, 0.3, 0.7, 1.0),
+            background_color = Vec4f(0.3, 0.3, 0.3, 1.0),
+            border_color = Vec4f(0.2, 0.2, 0.2, 1.0),
             border_width = 2.0f0,
             padding = 12.0f0,
             corner_radius = 6.0f0
@@ -51,8 +51,8 @@ module AsignacionesPopApp
 
         # Hover style
         hover_style = ContainerStyle(
-            background_color = Vec4f(0.3, 0.5, 0.9, 1.0),
-            border_color = Vec4f(0.2, 0.4, 0.8, 1.0),
+            background_color = Vec4f(0.4, 0.4, 0.4, 1.0),
+            border_color = Vec4f(0.3, 0.3, 0.3, 1.0),
             border_width = 2.0f0,
             padding = 12.0f0,
             corner_radius = 6.0f0
@@ -60,8 +60,8 @@ module AsignacionesPopApp
 
         # Pressed style
         pressed_style = ContainerStyle(
-            background_color = Vec4f(0.1, 0.2, 0.6, 1.0),
-            border_color = Vec4f(0.05, 0.15, 0.5, 1.0),
+            background_color = Vec4f(0.2, 0.2, 0.2, 1.0),
+            border_color = Vec4f(0.15, 0.15, 0.15, 1.0),
             border_width = 2.0f0,
             padding = 12.0f0,
             corner_radius = 6.0f0
@@ -79,13 +79,16 @@ module AsignacionesPopApp
         function entorno()
             apppath = Base.pathof(AsignacionesPopApp)
             im      = joinpath([joinpath(splitpath(apppath)[1:end-1]),"assets/folder.png"])
-            Column(
+            Container(Column(
                 Container(
                     Column(
                         Fugl.Text("Escuelas",horizontal_align=:left,style=header_style),
                         IntrinsicRow(
                             FixedSize(IconButton(im,
-                                on_click = () -> esc[] = NativeFileDialog.pick_file(),
+                                on_click = () -> esc[] = NativeFileDialog.pick_file()
+                                container_style = normal_style,
+                                hover_style = hover_style,
+                                pressed_style = pressed_style,
                                 interaction_state = button1_interaction[],
                                 on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
                                 ),100,100),
@@ -99,6 +102,9 @@ module AsignacionesPopApp
                         IntrinsicRow(
                             FixedSize(IconButton(im,
                                 on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                container_style = normal_style,
+                                hover_style = hover_style,
+                                pressed_style = pressed_style,
                                 interaction_state = button2_interaction[],
                                 on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
                                 ),100,100),
@@ -106,7 +112,7 @@ module AsignacionesPopApp
                             )
                         )
                     ),
-                )
+                ))
         end
         Fugl.run(entorno,title = "Asignación", 
                     window_width_px = 400, 
