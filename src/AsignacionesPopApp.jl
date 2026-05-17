@@ -39,13 +39,14 @@ module AsignacionesPopApp
 
         button1_interaction = Ref(InteractionState())
         button2_interaction = Ref(InteractionState())
+        button3_interaction = Ref(InteractionState())
 
         # Normal button style
         normal_style = ContainerStyle(
             background_color = Vec4f(0.9, 0.9, 0.9, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 12.0f0,
+            padding = 2.0f0,
             corner_radius = 6.0f0
         )
 
@@ -54,7 +55,7 @@ module AsignacionesPopApp
             background_color = Vec4f(0.7, 0.7, 0.7, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 12.0f0,
+            padding = 2.0f0,
             corner_radius = 6.0f0
         )
 
@@ -63,12 +64,12 @@ module AsignacionesPopApp
             background_color = Vec4f(0.85, 0.85, 0.95, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 12.0f0,
+            padding = 2.0f0,
             corner_radius = 6.0f0
         )
         header_style = TextStyle(
             color=Vec4f(0.1, 0.7, 0.7, 1.0),
-            size_px= 24,
+            size_px= 32,
         )
         # text_style = TextStyle(
         #     color = Vec4f(1.0, 1.0, 1.0, 1.0),
@@ -76,6 +77,7 @@ module AsignacionesPopApp
         # )
         esc = Ref("")
         act = Ref("")
+        pre = Ref("")
         function entorno()
             apppath = Base.pathof(AsignacionesPopApp)
             im      = joinpath([joinpath(splitpath(apppath)[1:end-1]),"assets/folder.png"])
@@ -92,7 +94,7 @@ module AsignacionesPopApp
                                 interaction_state = button1_interaction[],
                                 on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
                                 ),100,100),
-                            Fugl.Text(esc[],vertical_align=:middle)
+                            Fugl.Text(esc[],vertical_align=:middle,size_px=24)
                             )
                         )
                     ),
@@ -108,7 +110,23 @@ module AsignacionesPopApp
                                 interaction_state = button2_interaction[],
                                 on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
                                 ),100,100),
-                            Fugl.Text(act[],vertical_align=:middle)
+                            Fugl.Text(act[],vertical_align=:middle,size_px=24)
+                            )
+                        )
+                    ),
+                    HLine(style=SeparatorStyle(line_width=2.0f0, color=Vec4{Float32}(2.0f0, 2.0f0, 2.0f0, 1.0f0))),
+                    Column(
+                        Fugl.Text("Preprocesamiento",horizontal_align=:left,style=header_style),
+                        IntrinsicRow(
+                            FixedSize(IconButton(im,
+                                on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                container_style = normal_style,
+                                hover_style = hover_style,
+                                pressed_style = pressed_style,
+                                interaction_state = button3_interaction[],
+                                on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
+                                ),100,100),
+                            Fugl.Text(pre[],vertical_align=:middle,size_px=24)
                             )
                         )
                     ),

@@ -122,7 +122,7 @@ end
 
 #-------------------------------------------------------------------------------
 
-function filtrar_combinaciones(combinaciones; max_talleres = 2, max_visitas = 1, max_stands = 3, charlas_cons = 2,taller_y_visita = false)
+function filtrar_combinaciones(combinaciones; max_talleres = 2, max_visitas = 1, max_stands = 3, charlas_cons = 1,taller_y_visita = false)
     filter!(
         combo -> N_actividad(combo, Taller) <= max_talleres && #no haya mas de max_talleres talleres
         N_actividad(combo, Visita) <= max_visitas && #no haya mas de max_visitas visitas
@@ -170,6 +170,50 @@ function charlas_consecutivas(combo)
 end
 
 #-------------------------------------------------------------------------------
+#=Nuevo:
+function prioridad_combo(combo)
+    n_talleres = N_actividad(combo, Taller)
+    n_visitas  = N_actividad(combo, Visita)
+    n_charlas = N_actividad(combo, Charla)
+
+    if
+
+    elseif n_talleres > 0 && n_visitas > 0
+        return 0
+    elseif n_talleres > 0 || n_visitas > 0
+        return 1
+    else
+        return 2
+    end
+end
+
+function ordenar_combos(combinaciones)
+    return sort(combinaciones; by=prioridad_combo, alg=Base.Sort.MergeSort)
+end
+=#
+function prioridad_combo(combo)
+    n_charlas  = N_actividad(combo, Charla)
+    n_talleres = N_actividad(combo, Taller)
+    n_visitas  = N_actividad(combo, Visita)
+
+    tiene_las_3 = (n_charlas > 0 && n_talleres > 0 && n_visitas > 0)
+    tipos_presentes = (n_charlas > 0) + (n_talleres > 0) + (n_visitas > 0)
+    total_prioritarias = n_charlas + n_talleres + n_visitas
+
+    return (
+        -Int(tiene_las_3),     # primero los que tienen charla+taller+visita
+        -tipos_presentes,      # luego más tipos distintos presentes
+        -total_prioritarias,   # luego más cantidad total de actividades prioritarias
+        -n_talleres,           # desempate: más talleres
+        -n_visitas,            # luego más visitas
+        -n_charlas             # luego más charlas
+    )
+end
+
+function ordenar_combos(combinaciones)
+    return sort(combinaciones; by = prioridad_combo, alg = Base.Sort.MergeSort)
+end
+#-------------------------------------------------------------------------------
 #HAY que hacer pruebas con esto REVISAR
 function espera_aceptable(fin_A, ini_B, minutos_aceptables = 10) #conversar con popu el tiempo de espera, a priori 0
     res = false
@@ -214,12 +258,16 @@ function lectura_y_creacion(ruta_actividades)
     turno_manana, turno_tarde = separar_por_turno(actividades_del_dia)
 
     combos_turno_manana = consturir_combos(turno_manana,3) ## el numero es para el tamaño de los combos
-    combos_turno_tarde = consturir_combos(turno_tarde,3)
+    combos_turno_tarde = consturir_combos(turno_tarde,2)
     combos_jornada_completa = combinar_turnos(combos_turno_manana, combos_turno_tarde) ##
 
     filtrar_combinaciones(combos_turno_manana)
     filtrar_combinaciones(combos_turno_tarde) #lo hace in-place
     filtrar_combinaciones(combos_jornada_completa,taller_y_visita = true)
+
+    combos_turno_manana = ordenar_combos(combos_turno_manana)
+    combos_turno_tarde = ordenar_combos(combos_turno_tarde)
+    combos_jornada_completa = ordenar_combos(combos_jornada_completa)
 
 
     combos[i] = [combos_jornada_completa, combos_turno_manana, combos_turno_tarde]

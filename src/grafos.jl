@@ -4,21 +4,21 @@ function combo2respuesta(df,i,j,indicador_mañana,indicador_tarde)
     println("error en los indices i: $i y/0 j:$j")
 
   elseif 1 <= j < indicador_mañana #combo jornada completa
-    if (df[i,"Jornada Completa"] == "Si") && (df[i,"Estado"] == "Disponible" )
+    if (df[i,"Turno efectivo"] == "Jornada Completa") && (df[i,"Estado"] == "Disponible" )
       return 1
     else
       return 0
     end
 
   elseif indicador_mañana <= j < indicador_tarde #combo turno mañana
-    if (df[i,"TM"] == "Si" || df[i,"TM"] == "Sí") && df[i,"TT"] == "No" && (df[i, "Estado"] == "Disponible")
+    if (df[i,"Turno efectivo"] == "Turno Mañana") && (df[i, "Estado"] == "Disponible")
       return 1
     else
       return 0
     end
 
   elseif indicador_tarde <= j #combo turno tarde
-    if (df[i,"TT"] == "Si" || df[i,"TT"] == "Sí") && (df[i,"Estado"] == "Disponible")
+    if (df[i,"Turno efectivo"] == "Turno Tarde") && (df[i,"Estado"] == "Disponible")
       return 1
     else
       return 0
