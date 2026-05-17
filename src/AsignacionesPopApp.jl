@@ -89,7 +89,7 @@ module AsignacionesPopApp
                                 interaction_state = button1_interaction[],
                                 on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
                                 ),100,100),
-                            Fugl.Text(esc[],vertical_align=:center)
+                            Fugl.Text(esc[],vertical_align=:middle)
                             )
                         )
                     ),
@@ -102,7 +102,7 @@ module AsignacionesPopApp
                                 interaction_state = button2_interaction[],
                                 on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
                                 ),100,100),
-                            Fugl.Text(act[],vertical_align=:center)
+                            Fugl.Text(act[],vertical_align=:middle)
                             )
                         )
                     ),
