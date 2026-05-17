@@ -66,32 +66,47 @@ module AsignacionesPopApp
             padding = 12.0f0,
             corner_radius = 6.0f0
         )
-
+        header_style = TextStyle(
+            color=Vec4f(0.1, 0.7, 0.7, 1.0),
+            size_px= 24,
+        )
         # text_style = TextStyle(
         #     color = Vec4f(1.0, 1.0, 1.0, 1.0),
         #     size_points = 16
         # )
-        dir = Ref("")
+        esc = Ref("")
+        act = Ref("")
         function entorno()
             apppath = Base.pathof(AsignacionesPopApp)
             im      = joinpath([joinpath(splitpath(apppath)[1:end-1]),"assets/folder.png"])
-            Container(
-                Column(
-                    Container(
-                        Column(
-                            Fugl.Text("Escuelas"),
-                            IntrinsicRow(
-                                FixedSize(IconButton(im,
-                                    on_click = () -> dir[] = NativeFileDialog.pick_file(),
-                                    interaction_state = button1_interaction[],
-                                    on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                                    ),100,100),
-                                Fugl.Text(dir[])
-                                )
+            Row(
+                Container(
+                    Column(
+                        Fugl.Text("Escuelas",horizontal_align=:left,style=header_style),
+                        IntrinsicRow(
+                            FixedSize(IconButton(im,
+                                on_click = () -> esc[] = NativeFileDialog.pick_file(),
+                                interaction_state = button1_interaction[],
+                                on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
+                                ),100,100),
+                            Fugl.Text(esc[],vertical_align=:center)
                             )
                         )
                     ),
-            )
+                Container(
+                    Column(
+                        Fugl.Text("Actividades",horizontal_align=:left,style=header_style),
+                        IntrinsicRow(
+                            FixedSize(IconButton(im,
+                                on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                interaction_state = button2_interaction[],
+                                on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                ),100,100),
+                            Fugl.Text(act[],vertical_align=:center)
+                            )
+                        )
+                    ),
+                )
         end
         Fugl.run(entorno,title = "Asignación", 
                     window_width_px = 400, 
