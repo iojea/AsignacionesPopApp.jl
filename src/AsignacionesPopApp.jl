@@ -69,7 +69,11 @@ module AsignacionesPopApp
         )
         header_style = TextStyle(
             color=Vec4f(0.1, 0.7, 0.7, 1.0),
-            size_px= 32,
+            size_px= 32
+        )
+        file_style = TextStyle(
+            color=Vec4f(0.4,0.4,0.4,1.0),
+            size_px=24
         )
         # text_style = TextStyle(
         #     color = Vec4f(1.0, 1.0, 1.0, 1.0),
@@ -94,7 +98,7 @@ module AsignacionesPopApp
                                 interaction_state = button1_interaction[],
                                 on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
                                 ),100,100),
-                            Fugl.Text(esc[],vertical_align=:middle,size_px=24)
+                            Fugl.Text(esc[],vertical_align=:middle,style=file_style)
                             )
                         )
                     ),
@@ -110,7 +114,7 @@ module AsignacionesPopApp
                                 interaction_state = button2_interaction[],
                                 on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
                                 ),100,100),
-                            Fugl.Text(act[],vertical_align=:middle,size_px=24)
+                            Fugl.Text(act[],vertical_align=:middle,style=file_style)
                             )
                         ),
                     ),
@@ -127,7 +131,7 @@ module AsignacionesPopApp
                                 interaction_state = button3_interaction[],
                                 on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
                                 ),100,100),
-                            Fugl.Text(pre[],vertical_align=:middle,size_px=24)
+                            Fugl.Text(pre[],vertical_align=:middle,style=file_style)
                             )
                         )
                     ),
