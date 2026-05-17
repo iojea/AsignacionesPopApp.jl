@@ -74,7 +74,7 @@ module AsignacionesPopApp
         dir = Ref("")
         function entorno()
             apppath = Base.pathof(AsignacionesPopApp)
-            im      = joinpath([joinpath(apppath[1:end-1]),"assets/folder.png"])
+            im      = joinpath([joinpath(splitpath(apppath)[1:end-1]),"assets/folder.png"])
             Container(
                 Column(
                     Container(
@@ -85,9 +85,9 @@ module AsignacionesPopApp
                                     on_click = () -> dir[] = NativeFileDialog.pick_file(),
                                     interaction_state = button1_interaction[],
                                     on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                                    ),100,100)
-                                ),
+                                    ),100,100),
                                 Fugl.Text(dir[])
+                                )
                             )
                         )
                     ),
