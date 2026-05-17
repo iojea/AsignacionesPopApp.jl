@@ -79,7 +79,7 @@ module AsignacionesPopApp
         function entorno()
             apppath = Base.pathof(AsignacionesPopApp)
             im      = joinpath([joinpath(splitpath(apppath)[1:end-1]),"assets/folder.png"])
-            Row(
+            Column(
                 Container(
                     Column(
                         Fugl.Text("Escuelas",horizontal_align=:left,style=header_style),
