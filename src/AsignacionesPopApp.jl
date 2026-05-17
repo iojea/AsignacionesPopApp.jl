@@ -42,8 +42,8 @@ module AsignacionesPopApp
 
         # Normal button style
         normal_style = ContainerStyle(
-            background_color = Vec4f(0.3, 0.3, 0.3, 1.0),
-            border_color = Vec4f(0.2, 0.2, 0.2, 1.0),
+            background_color = Vec4f(0.9, 0.9, 0.9, 1.0),
+            border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
             padding = 12.0f0,
             corner_radius = 6.0f0
@@ -51,8 +51,8 @@ module AsignacionesPopApp
 
         # Hover style
         hover_style = ContainerStyle(
-            background_color = Vec4f(0.4, 0.4, 0.4, 1.0),
-            border_color = Vec4f(0.3, 0.3, 0.3, 1.0),
+            background_color = Vec4f(0.7, 0.7, 0.7, 1.0),
+            border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
             padding = 12.0f0,
             corner_radius = 6.0f0
@@ -60,8 +60,8 @@ module AsignacionesPopApp
 
         # Pressed style
         pressed_style = ContainerStyle(
-            background_color = Vec4f(0.2, 0.2, 0.2, 1.0),
-            border_color = Vec4f(0.15, 0.15, 0.15, 1.0),
+            background_color = Vec4f(0.85, 0.85, 0.95, 1.0),
+            border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
             padding = 12.0f0,
             corner_radius = 6.0f0
