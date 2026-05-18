@@ -235,7 +235,7 @@ module AsignacionesPopApp
         Fugl.run(
             entorno, title = "Asignación",
             window_width_px = 600,
-            window_height_px = 800
+            window_height_px = 500
         )
         return nothing
     end
