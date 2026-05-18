@@ -40,8 +40,10 @@ module AsignacionesPopApp
         button1_interaction = Ref(InteractionState())
         button2_interaction = Ref(InteractionState())
         button3_interaction = Ref(InteractionState())
+        button4_interaction = Ref(InteractionState())
 
-        # Normal button style
+        ## Estilos
+        # Estilos de botón
         normal_style = ContainerStyle(
             background_color = Vec4f(0.9, 0.9, 0.9, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
@@ -50,7 +52,6 @@ module AsignacionesPopApp
             corner_radius = 6.0f0
         )
 
-        # Hover style
         hover_style = ContainerStyle(
             background_color = Vec4f(0.7, 0.7, 0.7, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
@@ -59,7 +60,6 @@ module AsignacionesPopApp
             corner_radius = 6.0f0
         )
 
-        # Pressed style
         pressed_style = ContainerStyle(
             background_color = Vec4f(0.85, 0.85, 0.95, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
@@ -67,6 +67,8 @@ module AsignacionesPopApp
             padding = 2.0f0,
             corner_radius = 6.0f0
         )
+
+        # Estilos de texto
         header_style = TextStyle(
             color = Vec4f(0.1, 0.7, 0.7, 1.0),
             size_px = 32
@@ -75,13 +77,70 @@ module AsignacionesPopApp
             color = Vec4f(0.4, 0.4, 0.4, 1.0),
             size_px = 24
         )
-        # text_style = TextStyle(
-        #     color = Vec4f(1.0, 1.0, 1.0, 1.0),
-        #     size_points = 16
-        # )
+        err_style = TextStyle(
+            color = Vec4f(1.0, 0.0, 0.0, 1.0),
+            size_px = 24
+        )
+        ok_style = TextStyle(
+            color = Vec4f(0.0, 1.0, 0.0, 1.0),
+            size_px = 24
+        )
+
+        ### Textos
         esc = Ref("")
         act = Ref("")
         pre = Ref("")
+        outpre = Ref("")
+        errpre = Ref("")
+        okpre = Ref("")
+        destino = Ref("")
+        outas = Ref("")
+        outas2 = Ref("")
+        erras = Ref("")
+        okas = Ref("")
+
+
+        ### Preprocesado
+        function prepro()
+            try
+                df, repetidos_a_chequear = primer_filtrado(esc[], act[])
+                okpre[] = "✔"
+                outpre[] = "Preprocesado con éxito. Guarde los resultados."
+                sleep(1.0)
+                pre[] = NativeFileDialog.save_file()
+                XLSX.writetable(
+                    pre[],
+                    "Filtrados" => Tables.columntable(df),
+                    "Repetidos" => Tables.columntable(repetidos_a_chequear);
+                    overwrite = true
+                )
+            catch e
+                errpre[] = "×"
+                outpre[] = "Ocurrió un error. Revise el mensaje en la terminal."
+                sleep(1.0)
+                println(e)
+            end
+            return nothing
+        end
+
+        ### Asignación
+        function asignar()
+            try
+                asignacion, residuos = main(pre[], act[])
+                okas[] = "✔"
+                outas[] = "Asignación existosa. Seleccione la carpeta para guardar los resultados."
+                sleep(1.0)
+                destino[] = pick_folder()
+                outas2[] = "Asignación guardada en " * destino[]
+            catch e
+                erras[] = "×"
+                outas[] = "Ocurrió un error. Revise el mensaje en la terminal."
+                sleep(1.0)
+                println(e)
+            end
+            return nothing
+        end
+        ######################################## APP #########################################
         function entorno()
             apppath = Base.pathof(AsignacionesPopApp)
             im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
@@ -125,26 +184,55 @@ module AsignacionesPopApp
                             )
                         ),
                     ),
-                    HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(2.0f0, 2.0f0, 2.0f0, 1.0f0))),
+                    IntrinsicRow(
+                        HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
+                    ),
                     Container(
                         Column(
                             Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
                                 FixedSize(
-                                    IconButton(
-                                        im,
-                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                    TextButton(
+                                        "Preprocesar",
+                                        on_click = () -> prepro(),
                                         container_style = normal_style,
                                         hover_style = hover_style,
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ), 100, 100
+                                    ), 200, 100
                                 ),
-                                Fugl.Text(pre[], vertical_align = :middle, style = file_style)
-                            )
+                                FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
+                                FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
+                            ),
+                            Fugl.Text(outpre[], horizontal_align = :left, vertical_align = middle, style = file_style)
                         )
                     ),
+                    IntrinsicRow(
+                        HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
+                    ),
+                    Container(
+                        Column(
+                            Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
+                            IntrinsicRow(
+                                FixedSize(
+                                    TextButton(
+                                        Asignar,
+                                        on_click = () -> asignar(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button4_interaction[],
+                                        on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
+                                    ), 200, 100
+                                ),
+                                FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
+                                FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
+                            ),
+                            Fugl.Text(outas[], horizontal_align = :left, vertical_align = middle, style = file_style),
+                            Fugl.Text(outas2[], horizontal_align = :left, vertical_align = middle, style = file_style),
+                        )
+                    )
                 )
             )
         end
@@ -156,7 +244,4 @@ module AsignacionesPopApp
         return nothing
     end
 
-    function asigna(tfesc, tfact)
-        return main(tfesc.state.text, tfact.state.text)
-    end
 end

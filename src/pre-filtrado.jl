@@ -1,4 +1,3 @@
-
 #------------------------------------------------------------------------------
 #Seccion prioridad:
 function parse_lista_int(x)
@@ -29,7 +28,7 @@ function construir_criterios(ruta)
 
     for r in eachrow(df)
 
-        if !ismissing(r.resto) && (uppercase(String(r.resto)) == "SI" || uppercase(String(r.resto)) == "SÍ"  ) #si pusieron resto = ok terminamos...
+        if !ismissing(r.resto) && (uppercase(String(r.resto)) == "SI" || uppercase(String(r.resto)) == "SÍ") #si pusieron resto = ok terminamos...
             push!(criterios, e -> true)
             continue
         end
@@ -41,32 +40,34 @@ function construir_criterios(ruta)
         vmin = ismissing(r.vulnerabilidad_min) ? nothing : r.vulnerabilidad_min #si hay algo en vulnerabilidad guardalo
         jornada = ismissing(r.jornada_completa) ? nothing : r.jornada_completa #lo usariamos si le queremos dar prioridad a gente q viene de lejos
 
-        push!(criterios, e -> begin
+        push!(
+            criterios, e -> begin
 
-            ok = true
+                ok = true
 
-            if cursos !== nothing
-                ok &= e.curso in cursos
+                if cursos !== nothing
+                    ok &= e.curso in cursos
+                end
+
+                if orientacion !== nothing
+                    ok &= e.orientacion in orientacion
+                end
+
+                if vmin !== nothing
+                    ok &= e.vulnerabilidad >= vmin
+                end
+
+                if jornada !== nothing
+                    ok &= e.Jornada_completa == jornada
+                end
+
+                #if escuela_uba !== nothing
+                #  ok &= e.CUE in lista_uba
+                #end
+
+                return ok
             end
-
-            if orientacion !== nothing
-                ok &= e.orientacion in orientacion
-            end
-
-            if vmin !== nothing
-                ok &= e.vulnerabilidad >= vmin
-            end
-
-            if jornada !== nothing
-                ok &= e.Jornada_completa == jornada
-            end
-
-            #if escuela_uba !== nothing
-            #  ok &= e.CUE in lista_uba
-            #end
-
-            return ok
-        end)
+        )
 
     end
 
@@ -75,7 +76,7 @@ function construir_criterios(ruta)
 end
 #-------------------------------------------------------------------------------
 
-function agregar_prioridad!(df::DataFrame, criterios; col::Symbol=:prioridad, default::Int=length(criterios))
+function agregar_prioridad!(df::DataFrame, criterios; col::Symbol = :prioridad, default::Int = length(criterios))
 
     pr = Vector{Int}(undef, nrow(df))
 
@@ -87,10 +88,10 @@ function agregar_prioridad!(df::DataFrame, criterios; col::Symbol=:prioridad, de
 
         p = default
         fila = df[r, :]
-            for (k, criterio) in enumerate(criterios)
-    val = criterio(fila)
+        for (k, criterio) in enumerate(criterios)
+            val = criterio(fila)
 
-  end
+        end
         for (k, criterio) in enumerate(criterios)
             if criterio(fila)
                 p = k
@@ -107,27 +108,27 @@ end
 #-------------------------------------------------------------------------------=#
 
 function primer_numero(texto::AbstractString)
-  m = match(r"\d+", texto)
-  return isnothing(m) ? missing : parse(Int, m.match)
+    m = match(r"\d+", texto)
+    return isnothing(m) ? missing : parse(Int, m.match)
 end
 
 #------------------------------------------------------------------------------
 #Seccion jornada efectiva:
 
 function agregar_turno_efectivo!(
-    df;
-    col_turno::String = "turno solicitado",
-    col_ubicacion::Symbol = :Partido
-)
+        df;
+        col_turno::String = "turno solicitado",
+        col_ubicacion::Symbol = :Partido
+    )
 
     turno_solicitado = uppercase.(strip.(coalesce.(df[!, col_turno], "")))
     ubicacion = uppercase.(strip.(coalesce.(df[!, col_ubicacion], "")))
 
     habilitada_geo = (ubicacion .!= "CIUDAD AUTÓNOMA DE BUENOS AIRES (CABA)") .&
-                     (ubicacion .!= "PARTIDOS DEL GRAN BUENOS AIRES - ZONA NORTE (PBA)") .&
-                     (ubicacion .!= "CABA") .&
-                     (ubicacion .!= "ÁREA METROPOLITANA DE BUENOS AIRES") .&
-                     (ubicacion .!= "PARTIDOS DEL GRAN BUENOS AIRES-NORTE") #Depende del forms
+        (ubicacion .!= "PARTIDOS DEL GRAN BUENOS AIRES - ZONA NORTE (PBA)") .&
+        (ubicacion .!= "CABA") .&
+        (ubicacion .!= "ÁREA METROPOLITANA DE BUENOS AIRES") .&
+        (ubicacion .!= "PARTIDOS DEL GRAN BUENOS AIRES-NORTE") #Depende del forms
 
     solicita_jc = turno_solicitado .== "JORNADA COMPLETA: TURNO COMPLETO (9:00 A 16.00 HS.)"
     solicita_tm = turno_solicitado .== "JORNADA SIMPLE: SÓLO TURNO MAÑANA (9:00 A 12.30 HS.)"
@@ -163,13 +164,13 @@ end
 #-------------------------------------------------------------------------------
 
 function separar_repetidos(
-    df::DataFrame;
-    dia_col::String = "fecha solicitada",
-    cue_col::Symbol = :CUE,
-    dni_col::Symbol = :DNI_Docente,
-    prioridad_col::Symbol = :prioridad,
-    estado_col::String = "Estado",
-)
+        df::DataFrame;
+        dia_col::String = "fecha solicitada",
+        cue_col::Symbol = :CUE,
+        dni_col::Symbol = :DNI_Docente,
+        prioridad_col::Symbol = :prioridad,
+        estado_col::String = "Estado",
+    )
     n = nrow(df)
 
     dias = coalesce.(df[!, dia_col], "")
@@ -179,13 +180,13 @@ function separar_repetidos(
     # prioridad grande para missing
     prioridades = [
         ismissing(x) ? typemax(Int) : Int(round(x))
-        for x in df[!, prioridad_col]
+            for x in df[!, prioridad_col]
     ]
 
     orden_filas = sortperm(1:n, by = i -> (dias[i], prioridades[i], i))
 
-    vistos_cue_dia = Set{Tuple{Any,Any}}()
-    vistos_dni_dia = Set{Tuple{Any,Any}}()
+    vistos_cue_dia = Set{Tuple{Any, Any}}()
+    vistos_dni_dia = Set{Tuple{Any, Any}}()
 
     keep = trues(n)
 
@@ -229,27 +230,29 @@ end
 
 function primer_filtrado(ruta_crudo, ruta_actividades)
 
-  #...........................................LEO LOS ARCHIVOS:..................................................
+    #...........................................LEO LOS ARCHIVOS:..................................................
 
-  df = DataFrame(XLSX.readtable(ruta_crudo, 1))
-  df_actividades = DataFrame(XLSX.readtable(ruta_actividades, 1))
-  criterios = construir_criterios(ruta_actividades)
+    df = DataFrame(XLSX.readtable(ruta_crudo, 1))
+    df_actividades = DataFrame(XLSX.readtable(ruta_actividades, 1))
+    criterios = construir_criterios(ruta_actividades)
 
-  #........................................Chequeo que esten las columnas que necesita "Inscripciones.jl":...................................................
-  control_prefiltrado(df, df_actividades) ## Falta afilar los controles para evitar errores <------------------------------------- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #........................................Chequeo que esten las columnas que necesita "Inscripciones.jl":...................................................
+    control_prefiltrado(df, df_actividades) ## Falta afilar los controles para evitar errores <------------------------------------- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-  rename!(df, :"apellido y nombre del/la docente responsable de la visita" => "DNI_Docente")
-  rename!(df, Dict(
-    "codigo unico de escuela (cue)" => "CUE",
-    "porcentaje aproximado de estudiantes de familias de bajos recursos" => "vulnerabilidad",
-    "ubicacion de la escuela" => "Partido",
-    #"dni del/la docente responsable de la visita" => "DNI_Docente"
-  ))
-  #df.Docente = strip.(uppercase.(coalesce.(df.Docente, ""))) #no me acuerdo para que hago esto
+    rename!(df, :"apellido y nombre del/la docente responsable de la visita" => "DNI_Docente")
+    rename!(
+        df, Dict(
+            "codigo unico de escuela (cue)" => "CUE",
+            "porcentaje aproximado de estudiantes de familias de bajos recursos" => "vulnerabilidad",
+            "ubicacion de la escuela" => "Partido",
+            #"dni del/la docente responsable de la visita" => "DNI_Docente"
+        )
+    )
+    #df.Docente = strip.(uppercase.(coalesce.(df.Docente, ""))) #no me acuerdo para que hago esto
 
-  #........................................Seccion de prioridad .........................................................
+    #........................................Seccion de prioridad .........................................................
 
-    curso = [!ismissing(x) ? primer_numero(x) : missing for x in df[:,"curso que asistira"]]
+    curso = [!ismissing(x) ? primer_numero(x) : missing for x in df[:, "curso que asistira"]]
     orientacion = [!ismissing(x) ? primer_numero(x) : missing for x in df[:, "tipo de institucion educativa y orientacion"]]
 
     df.curso = curso
@@ -257,19 +260,11 @@ function primer_filtrado(ruta_crudo, ruta_actividades)
     agregar_prioridad!(df, criterios)
     sort!(df, :prioridad)
 
-  #........................................Creo la columna Jornada Completa y marco los repetidos: ...................................................
+    #........................................Creo la columna Jornada Completa y marco los repetidos: ...................................................
 
-  agregar_turno_efectivo!(df)
-  df[!, "Estado"] = fill("Disponible", nrow(df))
-  df, repetidos_a_chequear = separar_repetidos(df)
+    agregar_turno_efectivo!(df)
+    df[!, "Estado"] = fill("Disponible", nrow(df))
+    df, repetidos_a_chequear = separar_repetidos(df)
 
-
- XLSX.writetable(
-    "resultado.xlsx",
-    "Filtrados" => Tables.columntable(df),
-    "Repetidos" => Tables.columntable(repetidos_a_chequear);
-    overwrite=true
-)
-
+    return df, repetidos_a_chequear
 end
-
