@@ -217,7 +217,7 @@ module AsignacionesPopApp
                             IntrinsicRow(
                                 FixedSize(
                                     TextButton(
-                                        Asignar,
+                                        "Asignar",
                                         on_click = () -> asignar(),
                                         container_style = normal_style,
                                         hover_style = hover_style,
