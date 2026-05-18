@@ -205,7 +205,7 @@ module AsignacionesPopApp
                                 FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
                             ),
-                            Fugl.Text(outpre[], horizontal_align = :left, vertical_align = middle, style = file_style)
+                            Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
                     ),
                     IntrinsicRow(
@@ -229,8 +229,8 @@ module AsignacionesPopApp
                                 FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
                             ),
-                            Fugl.Text(outas[], horizontal_align = :left, vertical_align = middle, style = file_style),
-                            Fugl.Text(outas2[], horizontal_align = :left, vertical_align = middle, style = file_style),
+                            Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
+                            Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
                     )
                 )
