@@ -184,7 +184,7 @@ module AsignacionesPopApp
                             )
                         ),
                     ),
-                    IntrinsicRow(
+                    IntrinsicColumn(
                         HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     ),
                     Container(
@@ -200,7 +200,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ), 200, 100
+                                    ), 150, 100
                                 ),
                                 FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
@@ -208,7 +208,7 @@ module AsignacionesPopApp
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
                     ),
-                    IntrinsicRow(
+                    IntrinsicColumn(
                         HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     ),
                     Container(
@@ -224,7 +224,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button4_interaction[],
                                         on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
-                                    ), 200, 100
+                                    ), 150, 100
                                 ),
                                 FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
