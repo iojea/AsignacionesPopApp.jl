@@ -145,7 +145,7 @@ module AsignacionesPopApp
             apppath = Base.pathof(AsignacionesPopApp)
             im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
             return Container(
-                Column(
+                IntrinsicColumn(
                     Container(
                         Column(
                             Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
@@ -184,9 +184,7 @@ module AsignacionesPopApp
                             )
                         ),
                     ),
-                    IntrinsicColumn(
-                        HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    ),
+                    HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     Container(
                         Column(
                             Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
@@ -208,9 +206,7 @@ module AsignacionesPopApp
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
                     ),
-                    IntrinsicColumn(
-                        HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    ),
+                    HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     Container(
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
@@ -238,8 +234,8 @@ module AsignacionesPopApp
         end
         Fugl.run(
             entorno, title = "Asignación",
-            window_width_px = 800,
-            window_height_px = 400
+            window_width_px = 600,
+            window_height_px = 800
         )
         return nothing
     end
