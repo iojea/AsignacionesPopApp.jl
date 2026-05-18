@@ -228,14 +228,14 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),600,250)
+                    ),580,250)
                 )
             )
         end
         Fugl.run(
             entorno, title = "Asignación",
-            window_width_px = 600,
-            window_height_px = 900
+            # window_width_px = 600,
+            # window_height_px = 900
         )
         return nothing
     end
