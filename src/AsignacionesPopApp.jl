@@ -207,7 +207,7 @@ module AsignacionesPopApp
                         )
                     ),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    Container(
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -228,14 +228,14 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    )
+                    ),580,250)
                 )
             )
         end
         Fugl.run(
             entorno, title = "Asignación",
             window_width_px = 600,
-            window_height_px = 500
+            window_height_px = 600
         )
         return nothing
     end
