@@ -146,7 +146,7 @@ module AsignacionesPopApp
             im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
             return Container(
                 IntrinsicColumn(
-                    Container(
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -164,8 +164,8 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),
-                    Container(
+                    ),580,200),
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -183,9 +183,9 @@ module AsignacionesPopApp
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),
+                    ),580,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    Container(
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -205,7 +205,7 @@ module AsignacionesPopApp
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),
+                    ),580,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -235,7 +235,7 @@ module AsignacionesPopApp
         Fugl.run(
             entorno, title = "Asignación",
             window_width_px = 600,
-            window_height_px = 600
+            window_height_px = 900
         )
         return nothing
     end
