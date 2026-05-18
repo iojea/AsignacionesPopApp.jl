@@ -68,12 +68,12 @@ module AsignacionesPopApp
             corner_radius = 6.0f0
         )
         header_style = TextStyle(
-            color=Vec4f(0.1, 0.7, 0.7, 1.0),
-            size_px= 32
+            color = Vec4f(0.1, 0.7, 0.7, 1.0),
+            size_px = 32
         )
         file_style = TextStyle(
-            color=Vec4f(0.4,0.4,0.4,1.0),
-            size_px=24
+            color = Vec4f(0.4, 0.4, 0.4, 1.0),
+            size_px = 24
         )
         # text_style = TextStyle(
         #     color = Vec4f(1.0, 1.0, 1.0, 1.0),
@@ -84,62 +84,75 @@ module AsignacionesPopApp
         pre = Ref("")
         function entorno()
             apppath = Base.pathof(AsignacionesPopApp)
-            im      = joinpath([joinpath(splitpath(apppath)[1:end-1]),"assets/folder.png"])
-            Container(Column(
-                Container(
-                    Column(
-                        Fugl.Text("Escuelas",horizontal_align=:left,style=header_style),
-                        IntrinsicRow(
-                            FixedSize(IconButton(im,
-                                on_click = () -> esc[] = NativeFileDialog.pick_file(),
-                                container_style = normal_style,
-                                hover_style = hover_style,
-                                pressed_style = pressed_style,
-                                interaction_state = button1_interaction[],
-                                on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                                ),100,100),
-                            Fugl.Text(esc[],vertical_align=:middle,style=file_style)
+            im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
+            return Container(
+                Column(
+                    Container(
+                        Column(
+                            Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
+                            IntrinsicRow(
+                                FixedSize(
+                                    IconButton(
+                                        im,
+                                        on_click = () -> esc[] = NativeFileDialog.pick_file(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button1_interaction[],
+                                        on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
+                                    ), 100, 100
+                                ),
+                                Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
                     ),
-                Container(
-                    Column(
-                        Fugl.Text("Actividades",horizontal_align=:left,style=header_style),
-                        IntrinsicRow(
-                            FixedSize(IconButton(im,
-                                on_click = () -> act[] = NativeFileDialog.pick_file(),
-                                container_style = normal_style,
-                                hover_style = hover_style,
-                                pressed_style = pressed_style,
-                                interaction_state = button2_interaction[],
-                                on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                ),100,100),
-                            Fugl.Text(act[],vertical_align=:middle,style=file_style)
+                    Container(
+                        Column(
+                            Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
+                            IntrinsicRow(
+                                FixedSize(
+                                    IconButton(
+                                        im,
+                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button2_interaction[],
+                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                    ), 100, 100
+                                ),
+                                Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
                     ),
-                Container(HLine(style=SeparatorStyle(line_width=2.0f0, color=Vec4{Float32}(2.0f0, 2.0f0, 2.0f0, 1.0f0)))),
-                Container(
-                    Column(
-                        Fugl.Text("Preprocesamiento",horizontal_align=:left,style=header_style),
-                        IntrinsicRow(
-                            FixedSize(IconButton(im,
-                                on_click = () -> act[] = NativeFileDialog.pick_file(),
-                                container_style = normal_style,
-                                hover_style = hover_style,
-                                pressed_style = pressed_style,
-                                interaction_state = button3_interaction[],
-                                on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                ),100,100),
-                            Fugl.Text(pre[],vertical_align=:middle,style=file_style)
+                    HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(2.0f0, 2.0f0, 2.0f0, 1.0f0))),
+                    Container(
+                        Column(
+                            Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
+                            IntrinsicRow(
+                                FixedSize(
+                                    IconButton(
+                                        im,
+                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button3_interaction[],
+                                        on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
+                                    ), 100, 100
+                                ),
+                                Fugl.Text(pre[], vertical_align = :middle, style = file_style)
                             )
                         )
                     ),
-                ))
+                )
+            )
         end
-        Fugl.run(entorno,title = "Asignación", 
-                    window_width_px = 800, 
-                    window_height_px = 400)
+        Fugl.run(
+            entorno, title = "Asignación",
+            window_width_px = 800,
+            window_height_px = 400
+        )
         return nothing
     end
 
