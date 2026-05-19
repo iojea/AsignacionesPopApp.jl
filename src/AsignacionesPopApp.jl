@@ -164,7 +164,7 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),580,200),
+                    ),900,200),
                     FixedSize(Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
@@ -183,7 +183,7 @@ module AsignacionesPopApp
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),580,200),
+                    ),900,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -205,7 +205,7 @@ module AsignacionesPopApp
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),580,200),
+                    ),900,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -228,12 +228,12 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),580,250)
+                    ),900,250)
                 )
             )
         end
         Fugl.run(
-            entorno, "Asignación",600,900
+            entorno, title="Asignación",600,900
         )
         return nothing
     end
