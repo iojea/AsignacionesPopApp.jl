@@ -27,6 +27,7 @@ module AsignacionesPopApp
 
 
     include("data.jl")
+    include("corroboraciones.jl")
     include("pre-filtrado.jl")
     include("inscripciones.jl")
     include("actividades.jl")
@@ -48,7 +49,7 @@ module AsignacionesPopApp
             background_color = Vec4f(0.9, 0.9, 0.9, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 2.0f0,
+            padding = 0.5f0,
             corner_radius = 6.0f0
         )
 
@@ -56,7 +57,7 @@ module AsignacionesPopApp
             background_color = Vec4f(0.7, 0.7, 0.7, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 2.0f0,
+            padding = 0.5f0,
             corner_radius = 6.0f0
         )
 
@@ -64,7 +65,7 @@ module AsignacionesPopApp
             background_color = Vec4f(0.85, 0.85, 0.95, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 2.0f0,
+            padding = 0.5f0,
             corner_radius = 6.0f0
         )
 
@@ -228,7 +229,7 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),1200,250)
+                    ),900,250)
                 )
             )
         end

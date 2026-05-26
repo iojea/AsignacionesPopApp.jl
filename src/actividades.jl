@@ -228,6 +228,27 @@ end
 
 #-------------------------------------------------------------------------------
 
+function identifica_cuarto_slot(turno_tarde)
+    horas_cuarto_slot = Set([Time("13:00"), Time("13:30")])
+
+    cuarto_slot_del_dia = typeof(turno_tarde)([])
+    nuevo_turno_tarde = typeof(turno_tarde)([])
+
+    for act in turno_tarde
+        if act.inicio in horas_cuarto_slot
+            push!(cuarto_slot_del_dia, act)
+        else
+            push!(nuevo_turno_tarde, act)
+        end
+    end
+
+    return cuarto_slot_del_dia, nuevo_turno_tarde
+end
+
+
+
+#-------------------------------------------------------------------------------
+
 function lectura_y_creacion(ruta_actividades)
 
   df = DataFrame(XLSX.readtable(ruta_actividades, 1))
@@ -251,11 +272,14 @@ function lectura_y_creacion(ruta_actividades)
   actividades_x_dia = agrupar_por_dia(actividades)
   n_dias = length(actividades_x_dia)
   combos = [[] for _ in 1:n_dias]
+  actividades_cuarto_slot = []
+
   i = 1
 
   for actividades_del_dia in actividades_x_dia
 
     turno_manana, turno_tarde = separar_por_turno(actividades_del_dia)
+    cuarto_slot_del_dia, turno_tarde = identifica_cuarto_slot(turno_tarde)
 
     combos_turno_manana = consturir_combos(turno_manana,3) ## el numero es para el tamaño de los combos
     combos_turno_tarde = consturir_combos(turno_tarde,2)
@@ -271,11 +295,12 @@ function lectura_y_creacion(ruta_actividades)
 
 
     combos[i] = [combos_jornada_completa, combos_turno_manana, combos_turno_tarde]
+    push!(actividades_cuarto_slot, cuarto_slot_del_dia)
     i +=1
 
   end
 
-  return combos , actividades, df
+  return combos , actividades, df, actividades_cuarto_slot
 
 end
 
