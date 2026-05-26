@@ -49,7 +49,7 @@ module AsignacionesPopApp
             background_color = Vec4f(0.9, 0.9, 0.9, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 0.5f0,
+            padding = 1.0f0,
             corner_radius = 6.0f0
         )
 
@@ -57,7 +57,7 @@ module AsignacionesPopApp
             background_color = Vec4f(0.7, 0.7, 0.7, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 0.5f0,
+            padding = 1.0f0,
             corner_radius = 6.0f0
         )
 
@@ -65,7 +65,7 @@ module AsignacionesPopApp
             background_color = Vec4f(0.85, 0.85, 0.95, 1.0),
             border_color = Vec4f(0.8, 0.8, 0.8, 1.0),
             border_width = 2.0f0,
-            padding = 0.5f0,
+            padding = 1.0f0,
             corner_radius = 6.0f0
         )
 
