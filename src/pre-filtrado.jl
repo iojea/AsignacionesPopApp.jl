@@ -273,5 +273,6 @@ function primer_filtrado(ruta_crudo, ruta_actividades)
     println("=========================")
     println("Prefiltrado finalizado OK")
     println("=========================")
+    return true
 end
 
