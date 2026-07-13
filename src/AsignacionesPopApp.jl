@@ -34,6 +34,7 @@ module AsignacionesPopApp
     include("grafos.jl")
     include("Edmonds_Karp_modificado.jl")
     include("devoluciones.jl")
+    include("main.jl")
 
 
     function (@main)(ARGS)
