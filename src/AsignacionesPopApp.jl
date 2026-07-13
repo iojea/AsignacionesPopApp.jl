@@ -127,7 +127,7 @@ module AsignacionesPopApp
         ### Asignación
         function asignar()
             try
-                res,dfs_x_dia,combos_x_dia = main(pre[], act[])
+                res,dfs_x_dia,combos_x_dia = realizar_asignacion(pre[], act[])
                 okas[] = "✔"
                 outas[] = "Asignación existosa. Seleccione la carpeta para guardar los resultados."
                 sleep(1.0)

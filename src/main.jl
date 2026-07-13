@@ -1,4 +1,4 @@
-function main(ruta_inscripciones, ruta_actividades)
+function realizar_asignacion(ruta_inscripciones, ruta_actividades)
     cantidad_de_asignados = 0
     println(ruta_inscripciones)
     println(ruta_actividades)
