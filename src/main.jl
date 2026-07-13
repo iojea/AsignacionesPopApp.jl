@@ -38,7 +38,13 @@ function realizar_asignacion(ruta_inscripciones, ruta_actividades)
     res, combos_x_dia = agregar_cuarto_slot(res, combos_x_dia,dfs_x_dia, actividades_cuarto_slot)
     modificar_df_actividades!(df_actividades, actividades) # antes esto se hacia con un for por d en dias, creo q es innecesario pero REVISAR!!!####
 
-    nombre_salida = ruta_actividades*"_salida.xlsx"
+    partes_nombre = split(ruta_actividades,".")
+    nombre_salida = ""
+    for p in partes_nombre[1:end-1]
+        nombre_salida = nombre_salida*p*"."
+    end
+    nombre_salida = nombre_salida[1:end-1] *"_salida.xlsx"
+
     #creacion excel de actividades residuales:
     XLSX.writetable(
     nombre_salida,
