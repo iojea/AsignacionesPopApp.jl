@@ -127,11 +127,12 @@ module AsignacionesPopApp
         ### Asignación
         function asignar()
             try
-                asignacion, residuos = main(pre[], act[])
+                res,dfs_x_dia,combos_x_dia = main(pre[], act[])
                 okas[] = "✔"
                 outas[] = "Asignación existosa. Seleccione la carpeta para guardar los resultados."
                 sleep(1.0)
                 destino[] = pick_folder()
+                creador_df_entrega(res, dfs_x_dia, combos_x_dia, "asignaciones.xlsx")
                 outas2[] = "Asignación guardada en " * destino[]
             catch e
                 erras[] = "×"

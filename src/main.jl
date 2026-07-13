@@ -63,17 +63,24 @@ function main(ruta_inscripciones, ruta_actividades, dia = 0)
         res, combos_x_dia = agregar_cuarto_slot(res, combos_x_dia,dfs_x_dia, actividades_cuarto_slot)
         modificar_df_actividades!(df_actividades, actividades) # antes esto se hacia con un for por d en dias, creo q es innecesario pero REVISAR!!!####
 
+        nombre_salida = ruta_actividades*"_salida.xlsx"
         #creacion excel de actividades residuales:
         XLSX.writetable(
-        "Actividades_salida.xlsx",
+        nombre_salida,
         "Actividades" => Tables.columntable(df_actividades),
         "Criterios" => Tables.columntable(df_criterios),
         overwrite=true)
+        
+        println("=============================")
+        println("Se generó el archivo $nombre_salida. Es una copia de $ruta_actividades con las capacidades actualizadas para retomar el procesamiento, en caso de ser necesario.")
+        println("=============================")
 
         #creacion excel de asignaciones realizadas:
-        creador_df_entrega(res, dfs_x_dia, combos_x_dia, "asignaciones.xlsx")
+        # creador_df_entrega(res, dfs_x_dia, combos_x_dia, "asignaciones.xlsx")
 
         println("Se asignaron a $cantidad_de_asignados inscripciones.")
+        println("=============================")
     end
-    return combos_x_dia
+    # return combos_x_dia
+    return res,dfs_x_dia,combos_x_dia
 end
