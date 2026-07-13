@@ -264,15 +264,15 @@ function primer_filtrado(ruta_crudo, ruta_actividades)
   df, repetidos_a_chequear = separar_repetidos(df)
 
 
- XLSX.writetable(
-    "resultado.xlsx",
-    "Filtrados" => Tables.columntable(df),
-    "Repetidos" => Tables.columntable(repetidos_a_chequear);
-    overwrite=true
-)
+#  XLSX.writetable(
+#     "resultado.xlsx",
+#     "Filtrados" => Tables.columntable(df),
+#     "Repetidos" => Tables.columntable(repetidos_a_chequear);
+#     overwrite=true
+# )
     println("=========================")
     println("Prefiltrado finalizado OK")
     println("=========================")
-    return true
+    return df, repetidos_a_chequear
 end
 
