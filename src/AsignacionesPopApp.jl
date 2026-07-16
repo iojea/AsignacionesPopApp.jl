@@ -163,7 +163,7 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ))
+                    ),
                 #,1000,150),
                     #FixedSize(
                     Container(
@@ -184,7 +184,7 @@ module AsignacionesPopApp
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    )#,1000,150),
+                    ),#,1000,150),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     #FixedSize(
                               Container(
@@ -200,13 +200,13 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    )#, 100, 100),
+                                    ),#, 100, 100),
                                 FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    )#,1000,150),
+                    ),#,1000,150),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     #FixedSize(
                     Container(
