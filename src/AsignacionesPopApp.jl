@@ -39,6 +39,7 @@ module AsignacionesPopApp
         button3_interaction = Ref(InteractionState())
         button4_interaction = Ref(InteractionState())
         button5_interaction = Ref(InteractionState())
+        button6_interaction = Ref(InteractionState())
 
         ## Estilos
         # Estilos de botón
@@ -97,6 +98,7 @@ module AsignacionesPopApp
         erras = Ref("")
         okas = Ref("")
         archact = Ref("[Actividades]")
+        archpre = Ref("[Inscriptos]")
 
         ### Preprocesado
         function prepro()
@@ -225,6 +227,20 @@ module AsignacionesPopApp
                             ),
                             IntrinsicRow(
                                 FixedSize(
+                                    IconButton(
+                                        im,
+                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button6_interaction[],
+                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                    ), 100, 100
+                                ),
+                                Fugl.Text(archpre[], vertical_align = :middle, style = file_style)
+                            ),
+                            IntrinsicRow(
+                                FixedSize(
                                     TextButton(
                                         "Asignar",
                                         on_click = () -> asignar(),
@@ -241,12 +257,12 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),900,500)
+                    ),900,600)
                 )
             )
         end
         Fugl.run(
-            entorno, title="Asignación",window_width_px=500,window_height_px=700
+            entorno, title="Asignación",window_width_px=500,window_height_px=800
         )
         return nothing
     end
