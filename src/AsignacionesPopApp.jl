@@ -162,7 +162,7 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),900,150),
+                    ),900,200),
                     FixedSize(Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
