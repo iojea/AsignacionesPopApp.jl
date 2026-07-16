@@ -149,7 +149,7 @@ module AsignacionesPopApp
                         Column(
                             Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                                FixedSize(
+                                #FixedSize(
                                     IconButton(
                                         im,
                                         on_click = () -> esc[] = NativeFileDialog.pick_file(),
@@ -158,7 +158,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button1_interaction[],
                                         on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                                    ), 100, 100
+                                    )#, 100, 100
                                 ),
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
@@ -190,7 +190,7 @@ module AsignacionesPopApp
                         Column(
                             Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                                FixedSize(
+                                #FixedSize(
                                     TextButton(
                                         "Preprocesar",
                                         on_click = () -> prepro(),
@@ -199,8 +199,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ), 100, 100
-                                ),
+                                    )#, 100, 100),
                                 FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
                             ),
@@ -208,8 +207,8 @@ module AsignacionesPopApp
                         )
                     )#,1000,150),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    #FixedSize
-                        (Container(
+                    #FixedSize(
+                    Container(
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
