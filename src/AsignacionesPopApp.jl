@@ -1,8 +1,3 @@
-# In case you want to know, why the last line of the docstring below looks like it is:
-# It will show the package (local) path when help on the package is invoked like     help?> AsignacionesPopApp
-# but it will interpolate to an empty string on CI server,
-# preventing appearing the server local path in the documentation built there.
-
 """
     Package AsignacionesPopApp
 
@@ -167,7 +162,7 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),900,200),
+                    ),700,150),
                     FixedSize(Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
@@ -186,7 +181,7 @@ module AsignacionesPopApp
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),900,200),
+                    ),700,150),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -201,14 +196,14 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ), 150, 100
+                                    ), 100, 100
                                 ),
                                 FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),900,200),
+                    ),700,150),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -223,7 +218,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button4_interaction[],
                                         on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
-                                    ), 150, 100
+                                    ), 100, 100
                                 ),
                                 FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
@@ -231,7 +226,7 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),900,200)
+                    ),700,150)
                 )
             )
         end
