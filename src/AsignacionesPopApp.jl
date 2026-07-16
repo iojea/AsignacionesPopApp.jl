@@ -213,7 +213,7 @@ module AsignacionesPopApp
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                                FixedSize(
+                                #FixedSize(
                                     TextButton(
                                         "Asignar",
                                         on_click = () -> asignar(),
@@ -222,10 +222,12 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button4_interaction[],
                                         on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
-                                    ), 100, 100
+                                    #), 100, 100
                                 ),
-                                FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
-                                FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
+                                #FixedSize(
+                                          Fugl.Text(erras[], vertical_align = :middle, style = err_style)#, 100, 100),
+                                #FixedSize(
+                                          Fugl.Text(okas[], vertical_align = :middle, style = ok_style)#, 100, 100),
                             ),
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
