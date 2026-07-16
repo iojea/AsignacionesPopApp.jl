@@ -179,7 +179,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button2_interaction[],
                                         on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    )#, 100, 100
+                                    ),#, 100, 100
                                 #),
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
@@ -225,10 +225,9 @@ module AsignacionesPopApp
                                     #), 100, 100
                                 ),
                                 #FixedSize(
-                                          Fugl.Text(erras[], vertical_align = :middle, style = err_style)#, 100, 100),
+                                          Fugl.Text(erras[], vertical_align = :middle, style = err_style),#, 100, 100),
                                 #FixedSize(
-                                          Fugl.Text(okas[], vertical_align = :middle, style = ok_style)#, 100, 100),
-                            ),
+                                          Fugl.Text(okas[], vertical_align = :middle, style = ok_style),#, 100, 100),
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
