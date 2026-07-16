@@ -108,6 +108,7 @@ module AsignacionesPopApp
                 outpre[] = "Preprocesado con éxito. Guarde los resultados."
                 sleep(1.0)
                 pre[] = NativeFileDialog.save_file()
+                archpre[] = pre[]
                 XLSX.writetable(
                     pre[],
                     "Filtrados" => Tables.columntable(df),
@@ -121,6 +122,11 @@ module AsignacionesPopApp
                 println(e)
             end
             return nothing
+        end
+
+        function leeract()
+            act[] = NativeFileDialog.pick_file()
+            archact[] = act[]
         end
 
         ### Asignación
@@ -173,7 +179,7 @@ module AsignacionesPopApp
                                 FixedSize(
                                     IconButton(
                                         im,
-                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        on_click = leeract,
                                         container_style = normal_style,
                                         hover_style = hover_style,
                                         pressed_style = pressed_style,
