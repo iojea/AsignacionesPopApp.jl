@@ -95,6 +95,8 @@ module AsignacionesPopApp
         outas2 = Ref("")
         erras = Ref("")
         okas = Ref("")
+        archact = Ref("[Actividades]")
+        archpre = Ref("[Prefiltrado]")
 
 
         ### Preprocesado
@@ -210,6 +212,34 @@ module AsignacionesPopApp
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
                                 FixedSize(
+                                    IconButton(
+                                        im,
+                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button2_interaction[],
+                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                    ), 100, 100
+                                ),
+                                Fugl.Text(archact[], horizontal_align = :left, vertical_align = :middle, style = file_style),
+                                 ),
+                            IntrinsicRow(
+                                FixedSize(
+                                    IconButton(
+                                        im,
+                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button2_interaction[],
+                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                    ), 100, 100
+                                ),
+                                Fugl.Text(archpre[], horizontal_align = :left, vertical_align = :middle, style = file_style),
+                                 ),
+                            IntrinsicRow(
+                                FixedSize(
                                     TextButton(
                                         "Asignar",
                                         on_click = () -> asignar(),
@@ -222,11 +252,11 @@ module AsignacionesPopApp
                                 ),
                                 FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
-                            ),
+                            )),
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),900,400)
+                    ),900,450)
                 )
             )
         end
