@@ -38,6 +38,7 @@ module AsignacionesPopApp
         button2_interaction = Ref(InteractionState())
         button3_interaction = Ref(InteractionState())
         button4_interaction = Ref(InteractionState())
+        button5_interaction = Ref(InteractionState())
 
         ## Estilos
         # Estilos de botón
@@ -95,7 +96,7 @@ module AsignacionesPopApp
         outas2 = Ref("")
         erras = Ref("")
         okas = Ref("")
-
+        archact = Ref("[Actividades]")
 
         ### Preprocesado
         function prepro()
@@ -208,6 +209,20 @@ module AsignacionesPopApp
                     FixedSize(Container(
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
+                            IntrinsicRow(
+                                FixedSize(
+                                    IconButton(
+                                        im,
+                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        container_style = normal_style,
+                                        hover_style = hover_style,
+                                        pressed_style = pressed_style,
+                                        interaction_state = button5_interaction[],
+                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                    ), 100, 100
+                                ),
+                                Fugl.Text(archact[], vertical_align = :middle, style = file_style)
+                            ),
                             IntrinsicRow(
                                 FixedSize(
                                     TextButton(
