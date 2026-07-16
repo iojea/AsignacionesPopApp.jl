@@ -67,7 +67,7 @@ module AsignacionesPopApp
 
         # Estilos de texto
         header_style = TextStyle(
-            color = Vec4f(0.1, 0.7, 0.7, 1.0),
+            color = Vec4f(0.1, 0.5, 0.8, 1.0),
             size_px = 32
         )
         file_style = TextStyle(
@@ -231,7 +231,7 @@ module AsignacionesPopApp
             )
         end
         Fugl.run(
-            entorno, title="Asignación",window_width_px=400,window_height_px=800
+            entorno, title="Asignación",window_width_px=400,window_height_px=600
         )
         return nothing
     end
