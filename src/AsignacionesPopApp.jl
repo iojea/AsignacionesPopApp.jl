@@ -169,7 +169,7 @@ module AsignacionesPopApp
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                                FixedSize(
+                               # FixedSize(
                                     IconButton(
                                         im,
                                         on_click = () -> act[] = NativeFileDialog.pick_file(),
@@ -178,8 +178,8 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button2_interaction[],
                                         on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ), 100, 100
-                                ),
+                                    )#, 100, 100
+                                #),
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
