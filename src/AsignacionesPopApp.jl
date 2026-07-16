@@ -163,7 +163,8 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    )#,1000,150),
+                    ))
+                #,1000,150),
                     #FixedSize(
                     Container(
                         Column(
