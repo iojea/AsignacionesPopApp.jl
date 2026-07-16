@@ -208,7 +208,6 @@ module AsignacionesPopApp
                     FixedSize(Container(
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
-                            IntrinsicColumn(
                             IntrinsicRow(
                                 FixedSize(
                                     TextButton(
@@ -227,12 +226,12 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),900,400)
+                    ),900,500)
                 )
-            ))
+            )
         end
         Fugl.run(
-            entorno, title="Asignación",window_width_px=400,window_height_px=700
+            entorno, title="Asignación",window_width_px=500,window_height_px=700
         )
         return nothing
     end
