@@ -144,12 +144,11 @@ module AsignacionesPopApp
             im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
             return Container(
                 IntrinsicColumn(
-                    #FixedSize(
-                              Container(
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                                #FixedSize(
+                                FixedSize(
                                     IconButton(
                                         im,
                                         on_click = () -> esc[] = NativeFileDialog.pick_file(),
@@ -158,19 +157,17 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button1_interaction[],
                                         on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                                    )#, 100, 100
+                                    ), 100, 100
                                 ),
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),
-                #,1000,150),
-                    #FixedSize(
-                    Container(
+                    ),700,150),
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                               # FixedSize(
+                                FixedSize(
                                     IconButton(
                                         im,
                                         on_click = () -> act[] = NativeFileDialog.pick_file(),
@@ -179,19 +176,18 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button2_interaction[],
                                         on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ),#, 100, 100
-                                #),
+                                    ), 100, 100
+                                ),
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),#,1000,150),
+                    ),900,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    #FixedSize(
-                              Container(
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                                #FixedSize(
+                                FixedSize(
                                     TextButton(
                                         "Preprocesar",
                                         on_click = () -> prepro(),
@@ -200,20 +196,20 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ),#, 100, 100),
+                                    ), 100, 100
+                                ),
                                 FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),#,1000,150),
+                    ),900,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    #FixedSize(
-                    Container(
+                    FixedSize(Container(
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
-                                #FixedSize(
+                                FixedSize(
                                     TextButton(
                                         "Asignar",
                                         on_click = () -> asignar(),
@@ -222,21 +218,20 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button4_interaction[],
                                         on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
-                                    #), 100, 100
+                                    ), 100, 100
                                 ),
-                                #FixedSize(
-                                          Fugl.Text(erras[], vertical_align = :middle, style = err_style),#, 100, 100),
-                                #FixedSize(
-                                          Fugl.Text(okas[], vertical_align = :middle, style = ok_style),#, 100, 100),
+                                FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
+                                FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
+                            ),
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    )#,1000,150)
+                    ),900,200)
                 )
             )
         end
         Fugl.run(
-            entorno, title="Asignación",window_width_px=600,window_height_px=600
+            entorno, title="Asignación",window_width_px=600,window_height_px=800
         )
         return nothing
     end
