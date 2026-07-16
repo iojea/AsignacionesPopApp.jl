@@ -130,7 +130,7 @@ module AsignacionesPopApp
             try
                 res,dfs_x_dia,combos_x_dia = realizar_asignacion(pre[], act[])
                 okas[] = "✔"
-                outas[] = "Asignación existosa. Seleccione la carpeta para guardar los resultados."
+                outas[] = "Asignación existosa."
                 sleep(1.0)
                 destino[] = NativeFileDialog.save_file()
                 creador_df_entrega(res, dfs_x_dia, combos_x_dia, destino[])
@@ -167,7 +167,7 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),1200,200),
+                    ),900,200),
                     FixedSize(Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
@@ -186,7 +186,7 @@ module AsignacionesPopApp
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),1200,200),
+                    ),900,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -208,7 +208,7 @@ module AsignacionesPopApp
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),1200,200),
+                    ),900,200),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -231,7 +231,7 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),900,250)
+                    ),900,200)
                 )
             )
         end
