@@ -144,7 +144,8 @@ module AsignacionesPopApp
             im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
             return Container(
                 IntrinsicColumn(
-                    FixedSize(Container(
+                    #FixedSize(
+                              Container(
                         Column(
                             Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -162,8 +163,9 @@ module AsignacionesPopApp
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),1000,150),
-                    FixedSize(Container(
+                    )#,1000,150),
+                    #FixedSize(
+                    Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -181,9 +183,10 @@ module AsignacionesPopApp
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),1000,150),
+                    )#,1000,150),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    FixedSize(Container(
+                    #FixedSize(
+                              Container(
                         Column(
                             Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -203,9 +206,10 @@ module AsignacionesPopApp
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),1000,150),
+                    )#,1000,150),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    FixedSize(Container(
+                    #FixedSize
+                        (Container(
                         Column(
                             Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
                             IntrinsicRow(
@@ -226,7 +230,7 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),1000,150)
+                    )#,1000,150)
                 )
             )
         end
