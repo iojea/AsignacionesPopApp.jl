@@ -196,7 +196,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ), 100, 100
+                                    ), 150, 100
                                 ),
                                 FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
@@ -218,7 +218,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button4_interaction[],
                                         on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
-                                    ), 100, 100
+                                    ), 150, 100
                                 ),
                                 FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
                                 FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
@@ -231,7 +231,7 @@ module AsignacionesPopApp
             )
         end
         Fugl.run(
-            entorno, title="Asignación",window_width_px=600,window_height_px=800
+            entorno, title="Asignación",window_width_px=300,window_height_px=800
         )
         return nothing
     end
