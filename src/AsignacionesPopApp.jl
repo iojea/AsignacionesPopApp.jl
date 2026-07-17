@@ -190,7 +190,7 @@ module AsignacionesPopApp
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),900,300),
+                    ),1000,300),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -212,7 +212,7 @@ module AsignacionesPopApp
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),900,300),
+                    ),1000,300),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -263,7 +263,7 @@ module AsignacionesPopApp
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),900,600)
+                    ),1000,450)
                 )
             )
         end
