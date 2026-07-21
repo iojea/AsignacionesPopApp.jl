@@ -33,8 +33,8 @@ module AsignacionesPopApp
 
     const ANCHO_WIN = 500
     const ALTO_WIN = 750
-    const ANCHO_CONT = 500
-    const ALTO_CONT = 150
+    const ANCHO_CONT = 1000
+    const ALTO_CONT = 300
 
 
     function (@main)(ARGS)
@@ -217,7 +217,7 @@ module AsignacionesPopApp
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
-                    ),1000,300),
+                    ),ANCHO_CONT,ALTO_CONT),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
