@@ -33,8 +33,8 @@ module AsignacionesPopApp
 
     const ANCHO_WIN = 500
     const ALTO_WIN = 750
-    const ANCHO_CONT = 1000
-    const ALTO_CONT = 300
+    const ANCHO_CONT = 500
+    const ALTO_CONT = 150
 
 
     function (@main)(ARGS)
