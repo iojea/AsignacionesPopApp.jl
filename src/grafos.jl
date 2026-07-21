@@ -28,6 +28,14 @@ end
 
 #-------------------------------------------------------------------------------
 
+# helper: agrega u->v y también v->u al grafo (capacidad solo en u->v)
+function add_edge_with_reverse!(g, cap, u, v, c_uv::Int)
+    add_edge!(g, u, v)
+    add_edge!(g, v, u)      # <-- arista inversa para poder recorrer residual reverso
+    cap[u, v] = c_uv        # capacidad forward
+    return nothing
+end
+
 function crear_grafo_multi_curso(df, combos_x_turno; n_inscripciones=nrow(df)) ##CONSULTA PARA IGNA: el nrow(df) entiende q es del df q esta en la primera entrada?
 
     indicador_mañana = length(combos_x_turno[1])+1
@@ -46,13 +54,6 @@ function crear_grafo_multi_curso(df, combos_x_turno; n_inscripciones=nrow(df)) #
     g = DiGraph(N)
     cap = spzeros(Int, N, N)
 
-    # helper: agrega u->v y también v->u al grafo (capacidad solo en u->v)
-    function add_edge_with_reverse!(g, cap, u, v, c_uv::Int)
-        add_edge!(g, u, v)
-        add_edge!(g, v, u)      # <-- arista inversa para poder recorrer residual reverso
-        cap[u, v] = c_uv        # capacidad forward
-        return nothing
-    end
 
     # s -> curso (1 combo por curso)
     for i in 1:n
