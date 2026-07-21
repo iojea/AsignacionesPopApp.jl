@@ -32,7 +32,7 @@ module AsignacionesPopApp
     include("main.jl")
 
     const ANCHO_WIN = 500
-    const ALTO_WIN = 600
+    const ALTO_WIN = 700
     const ANCHO_CONT = 1000
     const ALTO_CONT = 300
 
