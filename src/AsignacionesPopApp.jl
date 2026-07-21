@@ -137,7 +137,7 @@ module AsignacionesPopApp
         ### Asignación
         function asignar()
             try
-                res,dfs_x_dia,combos_x_dia = realizar_asignacion(pre[], act[])
+                res,dfs_x_dia,combos_x_dia = realizar_asignacion(archpre[], archact[])
                 okas[] = "✔"
                 outas[] = "Asignación existosa."
                 sleep(1.0)
@@ -226,7 +226,7 @@ module AsignacionesPopApp
                                 FixedSize(
                                     IconButton(
                                         im,
-                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        on_click = () -> archact[] = NativeFileDialog.pick_file(),
                                         container_style = normal_style,
                                         hover_style = hover_style,
                                         pressed_style = pressed_style,
@@ -240,7 +240,7 @@ module AsignacionesPopApp
                                 FixedSize(
                                     IconButton(
                                         im,
-                                        on_click = () -> act[] = NativeFileDialog.pick_file(),
+                                        on_click = () -> archpre[] = NativeFileDialog.pick_file(),
                                         container_style = normal_style,
                                         hover_style = hover_style,
                                         pressed_style = pressed_style,
