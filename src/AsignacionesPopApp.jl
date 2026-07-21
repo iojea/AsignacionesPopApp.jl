@@ -31,6 +31,11 @@ module AsignacionesPopApp
     include("devoluciones.jl")
     include("main.jl")
 
+    const ANCHO_WIN = 500
+    const ALTO_WIN = 800
+    const ANCHO_CONT = 1000
+    const ALTO_CONT = 300
+
 
     function (@main)(ARGS)
 
@@ -166,12 +171,12 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button1_interaction[],
                                         on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                                    ), 100, 100
+                                    ), ALTO_CONT÷3, ALTO_CONT÷3
                                 ),
                                 Fugl.Text(esc[], vertical_align = :middle, style = file_style)
                             )
                         )
-                    ),1000,300),
+                    ),ANCHO_CONT,ALTO_CONT),
                     FixedSize(Container(
                         Column(
                             Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
@@ -185,12 +190,12 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button2_interaction[],
                                         on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ), 100, 100
+                                    ), ALTO_CONT÷3, ALTO_CONT÷3
                                 ),
                                 Fugl.Text(act[], vertical_align = :middle, style = file_style)
                             )
                         ),
-                    ),1000,300),
+                    ),ANCHO_CONT,ALTO_CONT),
                     HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
                     FixedSize(Container(
                         Column(
@@ -205,10 +210,10 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button3_interaction[],
                                         on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ), 150, 100
+                                    ), ALTO_CONT÷2,ALTO_CONT÷3
                                 ),
-                                FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), 100, 100),
-                                FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), 100, 100),
+                                FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), ALTO_CONT÷3, ALTO_CONT÷3),
+                                FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), ALTO_CONT÷3, ALTO_CONT÷3),
                             ),
                             Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
                         )
@@ -227,7 +232,7 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button5_interaction[],
                                         on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ), 100, 100
+                                    ), ALTO_CONT÷3, ALTO_CONT÷3
                                 ),
                                 Fugl.Text(archact[], vertical_align = :middle, style = file_style)
                             ),
@@ -241,8 +246,8 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button6_interaction[],
                                         on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ), 100, 100
-                                ),
+                                    ), ALTO_CONT÷3, ALTO_CONT÷3
+                                 ),
                                 Fugl.Text(archpre[], vertical_align = :middle, style = file_style)
                             ),
                             IntrinsicRow(
@@ -255,20 +260,20 @@ module AsignacionesPopApp
                                         pressed_style = pressed_style,
                                         interaction_state = button4_interaction[],
                                         on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
-                                    ), 150, 100
-                                ),
-                                FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), 100, 100),
-                                FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), 100, 100),
+                                    ), ALTO_CONT÷2, ALTO_CONT÷3
+                              ),
+                                FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), ALTO_CONT÷3, ALTO_CONT÷3),
+                                FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), ALTO_CONT÷3,ALTO_CONT÷3),
                             ),
                             Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                             Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
                         )
-                    ),1000,500)
+                    ),ANCHO_CONT,5*ALTO_CONT÷3)
                 )
             )
         end
         Fugl.run(
-            entorno, title="Asignación",window_width_px=500,window_height_px=700
+            entorno, title="Asignación",window_width_px=ANCHO_WIN,window_height_px=ALTO_WIN
         )
         return nothing
     end
