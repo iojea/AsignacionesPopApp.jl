@@ -1,12 +1,12 @@
 function realizar_asignacion(ruta_inscripciones, ruta_actividades)
     cantidad_de_asignados = 0
-    println(ruta_inscripciones)
-    println(ruta_actividades)
+    #println(ruta_inscripciones)
+    #println(ruta_actividades)
     df_criterios = DataFrame(XLSX.readtable(ruta_actividades, 2))
-    println("df_criterios ok")
+
     dfs_x_dia = Filtrar_inscripciones(ruta_inscripciones) #deberia crear aca un diccionario que identifique dia 1 = 3 y asi por ejemplo si el primer dia es un miercoles
 
-    println("dfs_x_dia ok")
+    
     combos_x_dia, actividades, df_actividades, actividades_cuarto_slot = lectura_y_creacion(ruta_actividades) #NUEVO, AGREGAR
 
     indices_ordenados = sortperm(nrow.(dfs_x_dia))
