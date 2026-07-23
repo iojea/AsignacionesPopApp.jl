@@ -39,7 +39,7 @@ const ANCHO_CONT_CHICO = ANCHO_CONT ÷ 2 - 20
 
 const ALTO_CONT_SUP = 145
 const ALTO_CONT_PRE = 150
-const ALTO_CONT_ASIG = 320
+const ALTO_CONT_ASIG = 420
 
 const ANCHO_BTN_IM = 88
 const ALTO_BTN_IM = 48
