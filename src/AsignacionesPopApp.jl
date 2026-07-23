@@ -31,14 +31,23 @@ module AsignacionesPopApp
     include("devoluciones.jl")
     include("main.jl")
 
-    const ANCHO_WIN = 500
-    const ALTO_WIN = 750
-    const ANCHO_CONT = 1000
-    const ALTO_CONT = 300
-    const ANCHO_BTN_IM = ALTO_CONT÷3
-    const ALTO_BTN_IM = ALTO_CONT÷3
-    const ANCHO_BTN_TXT = ALTO_CONT÷2
-    const ALTO_BTN_TXT = ALTO_CONT÷3
+const ANCHO_WIN = 950
+const ALTO_WIN = 760
+
+const ANCHO_CONT = 880
+const ANCHO_CONT_CHICO = ANCHO_CONT ÷ 2 - 20
+
+const ALTO_CONT_SUP = 145
+const ALTO_CONT_PRE = 150
+const ALTO_CONT_ASIG = 420
+
+const ANCHO_BTN_IM = 88
+const ALTO_BTN_IM = 48
+
+const ANCHO_BTN_TXT = 180
+const ALTO_BTN_TXT = 48
+
+const ANCHO_ESTADO = 45
 
 
     function (@main)(ARGS)
@@ -83,15 +92,15 @@ module AsignacionesPopApp
         )
         file_style = TextStyle(
             color = Vec4f(0.4, 0.4, 0.4, 1.0),
-            size_px = 24
+            size_px = 12
         )
         err_style = TextStyle(
             color = Vec4f(1.0, 0.0, 0.0, 1.0),
-            size_px = 24
+            size_px = 16
         )
         ok_style = TextStyle(
             color = Vec4f(0.0, 1.0, 0.0, 1.0),
-            size_px = 24
+            size_px = 16
         )
 
         ### Textos
@@ -108,6 +117,17 @@ module AsignacionesPopApp
         okas = Ref("")
         archact = Ref("[Actividades]")
         archpre = Ref("[Inscriptos]")
+
+        function ruta_corta(ruta)
+            if isempty(ruta)
+                return ""
+            end
+
+            carpeta = basename(dirname(ruta))
+            archivo = basename(ruta)
+
+            return joinpath(carpeta, archivo)
+        end
 
         ### Preprocesado
         function prepro()
@@ -138,6 +158,20 @@ module AsignacionesPopApp
             archact[] = act[]
         end
 
+        function elegir_archact()
+            ruta = NativeFileDialog.pick_file()
+            if ruta != ""
+                archact[] = ruta
+            end
+        end
+
+        function elegir_archpre()
+            ruta = NativeFileDialog.pick_file()
+            if ruta != ""
+                archpre[] = ruta
+            end
+        end
+
         ### Asignación
         function asignar()
             try
@@ -162,117 +196,264 @@ module AsignacionesPopApp
             im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
             return Container(
                 IntrinsicColumn(
+
+                    # ============================================================
+                    # FILA SUPERIOR: Escuelas y Actividades lado a lado
+                    # ============================================================
                     FixedSize(Container(
-                        Column(
-                            Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
-                            IntrinsicRow(
-                                FixedSize(
-                                    IconButton(
-                                        im,
-                                        on_click = () -> esc[] = NativeFileDialog.pick_file(),
-                                        container_style = normal_style,
-                                        hover_style = hover_style,
-                                        pressed_style = pressed_style,
-                                        interaction_state = button1_interaction[],
-                                        on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
-                                    ), ANCHO_BTN_IM, ALTO_BTN_IM
-                                ),
-                                Fugl.Text(esc[], vertical_align = :middle, style = file_style)
-                            )
+                        IntrinsicRow(
+
+                            # -------------------------
+                            # Bloque Escuelas
+                            # -------------------------
+                            FixedSize(Container(
+                                Column(
+                                    Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
+                                    IntrinsicRow(
+                                        FixedSize(
+                                            IconButton(
+                                                im,
+                                                on_click = () -> esc[] = NativeFileDialog.pick_file(),
+                                                container_style = normal_style,
+                                                hover_style = hover_style,
+                                                pressed_style = pressed_style,
+                                                interaction_state = button1_interaction[],
+                                                on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
+                                            ),
+                                            ANCHO_BTN_IM,
+                                            ALTO_BTN_IM
+                                        ),
+                                        Fugl.Text(ruta_corta(esc[]), vertical_align = :middle, style = file_style)
+                                    )
+                                )
+                            ), ANCHO_CONT_CHICO, ALTO_CONT_SUP),
+
+                            # -------------------------
+                            # Bloque Actividades
+                            # -------------------------
+                            FixedSize(Container(
+                                Column(
+                                    Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
+                                    IntrinsicRow(
+                                        FixedSize(
+                                            IconButton(
+                                                im,
+                                                on_click = leeract,
+                                                container_style = normal_style,
+                                                hover_style = hover_style,
+                                                pressed_style = pressed_style,
+                                                interaction_state = button2_interaction[],
+                                                on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                            ),
+                                            ANCHO_BTN_IM,
+                                            ALTO_BTN_IM
+                                        ),
+                                        Fugl.Text(ruta_corta(act[]), vertical_align = :middle, style = file_style)
+                                    )
+                                )
+                            ), ANCHO_CONT_CHICO, ALTO_CONT_SUP)
                         )
-                    ),ANCHO_CONT,ALTO_CONT),
-                    FixedSize(Container(
-                        Column(
-                            Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
-                            IntrinsicRow(
-                                FixedSize(
-                                    IconButton(
-                                        im,
-                                        on_click = leeract,
-                                        container_style = normal_style,
-                                        hover_style = hover_style,
-                                        pressed_style = pressed_style,
-                                        interaction_state = button2_interaction[],
-                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ), ANCHO_BTN_IM, ALTO_BTN_IM
+                    ), ANCHO_CONT, ALTO_CONT_SUP),
+
+                    HLine(style = SeparatorStyle(
+                        line_width = 2.0f0,
+                        color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0)
+                    )),
+
+                    # ============================================================
+                    # BLOQUE PREPROCESAMIENTO
+                    # ============================================================
+                    FixedSize(
+                        Container(
+                            IntrinsicColumn(
+                                Fugl.Text(
+                                    "Preprocesamiento",
+                                    horizontal_align = :left,
+                                    style = header_style
                                 ),
-                                Fugl.Text(act[], vertical_align = :middle, style = file_style)
+
+                                IntrinsicRow(
+                                    FixedSize(
+                                        TextButton(
+                                            "Preprocesar",
+                                            on_click = prepro,
+                                            container_style = normal_style,
+                                            hover_style = hover_style,
+                                            pressed_style = pressed_style,
+                                            interaction_state = button3_interaction[],
+                                            on_interaction_state_change =
+                                                (new_state) -> button3_interaction[] = new_state
+                                        ),
+                                        ANCHO_BTN_TXT,
+                                        ALTO_BTN_TXT
+                                    ),
+
+                                    FixedSize(
+                                        Fugl.Text(
+                                            errpre[],
+                                            vertical_align = :middle,
+                                            style = err_style
+                                        ),
+                                        ANCHO_ESTADO,
+                                        ALTO_BTN_TXT
+                                    ),
+
+                                    FixedSize(
+                                        Fugl.Text(
+                                            okpre[],
+                                            vertical_align = :middle,
+                                            style = ok_style
+                                        ),
+                                        ANCHO_ESTADO,
+                                        ALTO_BTN_TXT
+                                    );
+
+                                    spacing = 10.0
+                                ),
+
+                                Fugl.Text(
+                                    outpre[],
+                                    horizontal_align = :left,
+                                    vertical_align = :middle,
+                                    wrap_text = false,
+                                    style = file_style
+                                );
+
+                                spacing = 12.0
                             )
                         ),
-                    ),ANCHO_CONT,ALTO_CONT),
-                    HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    FixedSize(Container(
-                        Column(
-                            Fugl.Text("Preprocesamiento", horizontal_align = :left, style = header_style),
-                            IntrinsicRow(
-                                FixedSize(
-                                    TextButton(
-                                        "Preprocesar",
-                                        on_click = () -> prepro(),
-                                        container_style = normal_style,
-                                        hover_style = hover_style,
-                                        pressed_style = pressed_style,
-                                        interaction_state = button3_interaction[],
-                                        on_interaction_state_change = (new_state) -> button3_interaction[] = new_state
-                                    ), ANCHO_BTN_TXT,ALTO_BTN_TXT
+                        ANCHO_CONT,
+                        ALTO_CONT_PRE
+                    ),
+                    
+
+                    # ============================================================
+                    # BLOQUE ASIGNACIÓN
+                    # ============================================================
+                    FixedSize(
+                        Container(
+                            IntrinsicColumn(
+                                Fugl.Text(
+                                    "Asignación",
+                                    horizontal_align = :left,
+                                    style = header_style
                                 ),
-                                FixedSize(Fugl.Text(errpre[], vertical_align = :middle, style = err_style), ANCHO_CONT÷2, ALTO_CONT÷3),
-                                FixedSize(Fugl.Text(okpre[], vertical_align = :middle, style = ok_style), ANCHO_CONT÷2, ALTO_CONT÷3),
-                            ),
-                            Fugl.Text(outpre[], horizontal_align = :left, vertical_align = :middle, style = file_style)
-                        )
-                    ),ANCHO_CONT,ALTO_CONT),
-                    HLine(style = SeparatorStyle(line_width = 2.0f0, color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0))),
-                    FixedSize(Container(
-                        Column(
-                            Fugl.Text("Asignación", horizontal_align = :left, style = header_style),
-                            IntrinsicRow(
-                                FixedSize(
-                                    IconButton(
-                                        im,
-                                        on_click = () -> archact[] = NativeFileDialog.pick_file(),
-                                        container_style = normal_style,
-                                        hover_style = hover_style,
-                                        pressed_style = pressed_style,
-                                        interaction_state = button5_interaction[],
-                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ), ANCHO_BTN_IM,ALTO_BTN_IM
+
+                                IntrinsicRow(
+                                    FixedSize(
+                                        IconButton(
+                                            im,
+                                            on_click = elegir_archact,
+                                            container_style = normal_style,
+                                            hover_style = hover_style,
+                                            pressed_style = pressed_style,
+                                            interaction_state = button5_interaction[],
+                                            on_interaction_state_change =
+                                                (new_state) -> button5_interaction[] = new_state
+                                        ),
+                                        ANCHO_BTN_IM,
+                                        ALTO_BTN_IM
+                                    ),
+
+                                    Fugl.Text(
+                                        ruta_corta(archact[]),
+                                        horizontal_align = :left,
+                                        vertical_align = :middle,
+                                        wrap_text = false,
+                                        style = file_style
+                                    );
+
+                                    spacing = 14.0
                                 ),
-                                Fugl.Text(archact[], vertical_align = :middle, style = file_style)
-                            ),
-                            IntrinsicRow(
-                                FixedSize(
-                                    IconButton(
-                                        im,
-                                        on_click = () -> archpre[] = NativeFileDialog.pick_file(),
-                                        container_style = normal_style,
-                                        hover_style = hover_style,
-                                        pressed_style = pressed_style,
-                                        interaction_state = button6_interaction[],
-                                        on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
-                                    ), ANCHO_BTN_IM, ALTO_BTN_IM
-                                 ),
-                                Fugl.Text(archpre[], vertical_align = :middle, style = file_style)
-                            ),
-                            IntrinsicRow(
-                                FixedSize(
-                                    TextButton(
-                                        "Asignar",
-                                        on_click = () -> asignar(),
-                                        container_style = normal_style,
-                                        hover_style = hover_style,
-                                        pressed_style = pressed_style,
-                                        interaction_state = button4_interaction[],
-                                        on_interaction_state_change = (new_state) -> button4_interaction[] = new_state
-                                    ), ANCHO_BTN_TXT, ALTO_BTN_TXT
-                              ),
-                                FixedSize(Fugl.Text(erras[], vertical_align = :middle, style = err_style), ANCHO_CONT÷3, ALTO_CONT÷3),
-                                FixedSize(Fugl.Text(okas[], vertical_align = :middle, style = ok_style), ANCHO_CONT÷3,ALTO_CONT÷3),
-                            ),
-                            Fugl.Text(outas[], horizontal_align = :left, vertical_align = :middle, style = file_style),
-                            Fugl.Text(outas2[], horizontal_align = :left, vertical_align = :middle, style = file_style),
-                        )
-                    ),ANCHO_CONT,5*ALTO_CONT÷3)
+
+                                IntrinsicRow(
+                                    FixedSize(
+                                        IconButton(
+                                            im,
+                                            on_click = elegir_archpre,
+                                            container_style = normal_style,
+                                            hover_style = hover_style,
+                                            pressed_style = pressed_style,
+                                            interaction_state = button6_interaction[],
+                                            on_interaction_state_change =
+                                                (new_state) -> button6_interaction[] = new_state
+                                        ),
+                                        ANCHO_BTN_IM,
+                                        ALTO_BTN_IM
+                                    ),
+
+                                    Fugl.Text(
+                                        ruta_corta(archpre[]),
+                                        horizontal_align = :left,
+                                        vertical_align = :middle,
+                                        wrap_text = false,
+                                        style = file_style
+                                    );
+
+                                    spacing = 14.0
+                                ),
+
+                                IntrinsicRow(
+                                    FixedSize(
+                                        TextButton(
+                                            "Asignar",
+                                            on_click = asignar,
+                                            container_style = normal_style,
+                                            hover_style = hover_style,
+                                            pressed_style = pressed_style,
+                                            interaction_state = button4_interaction[],
+                                            on_interaction_state_change =
+                                                (new_state) -> button4_interaction[] = new_state
+                                        ),
+                                        ANCHO_BTN_TXT,
+                                        ALTO_BTN_TXT
+                                    ),
+
+                                    FixedSize(
+                                        Fugl.Text(
+                                            erras[],
+                                            vertical_align = :middle,
+                                            style = err_style
+                                        ),
+                                        ANCHO_ESTADO,
+                                        ALTO_BTN_TXT
+                                    ),
+
+                                    FixedSize(
+                                        Fugl.Text(
+                                            okas[],
+                                            vertical_align = :middle,
+                                            style = ok_style
+                                        ),
+                                        ANCHO_ESTADO,
+                                        ALTO_BTN_TXT
+                                    );
+
+                                    spacing = 10.0
+                                ),
+
+                                Fugl.Text(
+                                    outas[],
+                                    horizontal_align = :left,
+                                    vertical_align = :middle,
+                                    wrap_text = false,
+                                    style = file_style
+                                ),
+
+                                Fugl.Text(
+                                    outas2[],
+                                    horizontal_align = :left,
+                                    vertical_align = :middle,
+                                    wrap_text = false,
+                                    style = file_style
+                                );
+
+                                spacing = 12.0
+                            )
+                        ),
+                        ANCHO_CONT,
+                        ALTO_CONT_ASIG
+                    )
                 )
             )
         end
