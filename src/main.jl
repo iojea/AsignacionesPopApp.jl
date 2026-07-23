@@ -10,8 +10,10 @@ function realizar_asignacion(ruta_inscripciones, ruta_actividades)
     combos_x_dia, actividades, df_actividades, actividades_cuarto_slot = lectura_y_creacion(ruta_actividades) #NUEVO, AGREGAR
 
     indices_ordenados = sortperm(nrow.(dfs_x_dia))
+
     dfs_x_dia = dfs_x_dia[indices_ordenados]
     combos_x_dia = combos_x_dia[indices_ordenados]
+    actividades_cuarto_slot = actividades_cuarto_slot[indices_ordenados]
 
     cantidad_de_dias = length(dfs_x_dia)
 
@@ -34,17 +36,18 @@ function realizar_asignacion(ruta_inscripciones, ruta_actividades)
 
         println("Se asignaron a $f de $cantidad_inscriptos inscriptos en la $d ° asignación.")
     end
-
+    
     res, combos_x_dia = agregar_cuarto_slot(res, combos_x_dia,dfs_x_dia, actividades_cuarto_slot)
+    
     modificar_df_actividades!(df_actividades, actividades) # antes esto se hacia con un for por d en dias, creo q es innecesario pero REVISAR!!!####
-
+    
     partes_nombre = split(ruta_actividades,".")
     nombre_salida = ""
     for p in partes_nombre[1:end-1]
         nombre_salida = nombre_salida*p*"."
     end
     nombre_salida = nombre_salida[1:end-1] *"_salida.xlsx"
-
+    
     #creacion excel de actividades residuales:
     XLSX.writetable(
     nombre_salida,

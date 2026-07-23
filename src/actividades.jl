@@ -228,6 +228,31 @@ end
 
 #-------------------------------------------------------------------------------
 
+function normalizar_label(act)
+    if !hasproperty(act, :label)
+        return ""
+    end
+
+    return strip(uppercase(String(act.label)))
+end
+
+#-------------------------------------------------------------------------------
+
+function tiene_opcion_cuarto_slot(combo, opciones_cuarto_slot)
+    labels_combo = Set(
+        normalizar_label(act)
+        for act in combo
+        if hasproperty(act, :label)
+    )
+
+    return any(
+        normalizar_label(act) ∉ labels_combo
+        for act in opciones_cuarto_slot
+    )
+end
+
+#-------------------------------------------------------------------------------
+
 function identifica_cuarto_slot(turno_tarde)
     horas_cuarto_slot = Set([Time("13:00"), Time("13:30")])
 
@@ -260,14 +285,29 @@ function lectura_y_creacion(ruta_actividades)
   ))
 
   actividades = ActividadGeneral[]
-
+  #
   for i in 1:nrow(df)
+    fila = df[i, 1:7]
 
-    fila = df[i,1:7] ###CANTIDAD DE COLUMNAS CON INFORMACION REELEVANTE
-    act = crear_actividad(fila,i)
-    push!(actividades,act)
+    # Algunas planillas pueden contener filas vacías al final.
+    if ismissing(fila.Tipo) ||
+       isempty(strip(String(coalesce(fila.Tipo, ""))))
 
-  end
+        @warn "Se omite una fila de actividades vacía" fila_excel = i + 1
+        continue
+    end
+
+    act = crear_actividad(fila, i)
+
+    if !(act isa ActividadGeneral)
+        error(
+            "La fila $(i + 1) no produjo una actividad válida. " *
+            "Se obtuvo: $(repr(act))"
+        )
+    end
+
+    push!(actividades, act)
+    end
 
   actividades_x_dia = agrupar_por_dia(actividades)
   n_dias = length(actividades_x_dia)
@@ -288,6 +328,16 @@ function lectura_y_creacion(ruta_actividades)
     filtrar_combinaciones(combos_turno_manana)
     filtrar_combinaciones(combos_turno_tarde) #lo hace in-place
     filtrar_combinaciones(combos_jornada_completa,taller_y_visita = true)
+
+    filter!(
+    combo -> tiene_opcion_cuarto_slot(combo, cuarto_slot_del_dia),
+    combos_turno_tarde
+    )
+
+    filter!(
+        combo -> tiene_opcion_cuarto_slot(combo, cuarto_slot_del_dia),
+        combos_jornada_completa
+    )
 
     combos_turno_manana = ordenar_combos(combos_turno_manana)
     combos_turno_tarde = ordenar_combos(combos_turno_tarde)
