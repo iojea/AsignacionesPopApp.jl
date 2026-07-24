@@ -34,7 +34,7 @@ module AsignacionesPopApp
 const ANCHO_WIN = 950
 const ALTO_WIN = 760
 
-const ANCHO_CONT = 930
+const ANCHO_CONT = 945
 const ANCHO_CONT_CHICO = ANCHO_CONT ÷ 2 - 20
 
 const ALTO_CONT_SUP = 145
@@ -51,7 +51,7 @@ const ALTO_BTN_TXT = 50
 const ANCHO_ESTADO = 45
 
 const ESCALA_MIN = 0.65f0
-const ESCALA_MAX = 1.60f0
+const ESCALA_MAX = 1.90f0
 
 
     function (@main)(ARGS)
