@@ -55,7 +55,7 @@ const ESCALA_MAX = 1.90f0
 
 
     function (@main)(ARGS)
-        dpi_ref = Fugl.create_dpi_scaling_ref()
+        dpi_ref = create_dpi_scaling_ref()
         ultima_escala = Ref(1.0f0)
 
         button1_interaction = Ref(InteractionState())
