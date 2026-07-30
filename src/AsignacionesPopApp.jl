@@ -34,23 +34,29 @@ module AsignacionesPopApp
 const ANCHO_WIN = 950
 const ALTO_WIN = 760
 
-const ANCHO_CONT = 880
+const ANCHO_CONT = 945
 const ANCHO_CONT_CHICO = ANCHO_CONT ÷ 2 - 20
 
 const ALTO_CONT_SUP = 145
-const ALTO_CONT_PRE = 150
-const ALTO_CONT_ASIG = 420
+
+const ALTO_CONT_PRE = 200#165
+const ALTO_CONT_ASIG = 500 #420
 
 const ANCHO_BTN_IM = 88
 const ALTO_BTN_IM = 48
 
 const ANCHO_BTN_TXT = 180
-const ALTO_BTN_TXT = 48
+const ALTO_BTN_TXT = 50
 
 const ANCHO_ESTADO = 45
 
+const ESCALA_MIN = 0.65f0
+const ESCALA_MAX = 1.90f0
+
 
     function (@main)(ARGS)
+        dpi_ref = Fugl.create_dpi_scaling_ref()
+        ultima_escala = Ref(1.0f0)
 
         button1_interaction = Ref(InteractionState())
         button2_interaction = Ref(InteractionState())
@@ -88,19 +94,19 @@ const ANCHO_ESTADO = 45
         # Estilos de texto
         header_style = TextStyle(
             color = Vec4f(0.1, 0.5, 0.8, 1.0),
-            size_px = 32
+            size_points = 32
         )
         file_style = TextStyle(
             color = Vec4f(0.4, 0.4, 0.4, 1.0),
-            size_px = 12
+            size_points = 12
         )
         err_style = TextStyle(
             color = Vec4f(1.0, 0.0, 0.0, 1.0),
-            size_px = 16
+            size_points = 16
         )
         ok_style = TextStyle(
             color = Vec4f(0.0, 1.0, 0.0, 1.0),
-            size_px = 16
+            size_points = 16
         )
 
         ### Textos
@@ -129,8 +135,27 @@ const ANCHO_ESTADO = 45
             return joinpath(carpeta, archivo)
         end
 
+        function limpiar_estado_preprocesamiento()
+            outpre[] = ""
+            errpre[] = ""
+            okpre[] = ""
+            return nothing
+        end               
+        
+        function leeresc() #agrego esta función para que quede limpia la interfaz cuando vuelvo a correr un archivo
+            ruta = NativeFileDialog.pick_file()
+
+            if ruta != ""
+                esc[] = ruta
+                limpiar_estado_preprocesamiento()
+            end
+
+            return nothing
+        end             
+
         ### Preprocesado
         function prepro()
+            limpiar_estado_preprocesamiento()
             try
                 df, repetidos_a_chequear = primer_filtrado(esc[], act[])
                 okpre[] = "✔"
@@ -154,8 +179,15 @@ const ANCHO_ESTADO = 45
         end
 
         function leeract()
-            act[] = NativeFileDialog.pick_file()
-            archact[] = act[]
+            ruta = NativeFileDialog.pick_file()
+
+            if ruta != ""
+                act[] = ruta
+                archact[] = ruta
+                limpiar_estado_preprocesamiento()
+            end
+
+            return nothing
         end
 
         function elegir_archact()
@@ -192,73 +224,151 @@ const ANCHO_ESTADO = 45
         end
         ######################################## APP #########################################
         function entorno()
+            ancho_actual, alto_actual = Fugl.get_logical_size(dpi_ref)
+
+            if ancho_actual > 0 && alto_actual > 0
+                nueva_escala = min(
+                    ancho_actual / Float32(ANCHO_WIN),
+                    alto_actual / Float32(ALTO_WIN)
+                )
+
+                nueva_escala = clamp(
+                    nueva_escala,
+                    ESCALA_MIN,
+                    ESCALA_MAX
+                )
+
+                if abs(nueva_escala - ultima_escala[]) > 0.01f0
+                    Fugl.set_manual_scaling!(dpi_ref, nueva_escala)
+                    ultima_escala[] = nueva_escala
+                end
+            end
+
             apppath = Base.pathof(AsignacionesPopApp)
-            im = joinpath([joinpath(splitpath(apppath)[1:(end - 1)]), "assets/folder.png"])
+
+            im = joinpath(
+                dirname(apppath),
+                "assets",
+                "folder.png"
+            )
+
+            @assert isfile(im) "No se encontró el ícono de carpeta en: $im"
             return Container(
                 IntrinsicColumn(
 
                     # ============================================================
                     # FILA SUPERIOR: Escuelas y Actividades lado a lado
                     # ============================================================
-                    FixedSize(Container(
-                        IntrinsicRow(
+                    FixedSize(
+                        Container(
+                            IntrinsicRow(
 
-                            # -------------------------
-                            # Bloque Escuelas
-                            # -------------------------
-                            FixedSize(Container(
-                                Column(
-                                    Fugl.Text("Escuelas", horizontal_align = :left, style = header_style),
-                                    IntrinsicRow(
-                                        FixedSize(
-                                            IconButton(
-                                                im,
-                                                on_click = () -> esc[] = NativeFileDialog.pick_file(),
-                                                container_style = normal_style,
-                                                hover_style = hover_style,
-                                                pressed_style = pressed_style,
-                                                interaction_state = button1_interaction[],
-                                                on_interaction_state_change = (new_state) -> button1_interaction[] = new_state
+                                # ------------------------------------------------
+                                # Bloque Escuelas
+                                # ------------------------------------------------
+                                FixedSize(
+                                    Container(
+                                        IntrinsicColumn(
+                                            Fugl.Text(
+                                                "Escuelas",
+                                                horizontal_align = :left,
+                                                style = header_style
                                             ),
-                                            ANCHO_BTN_IM,
-                                            ALTO_BTN_IM
-                                        ),
-                                        Fugl.Text(ruta_corta(esc[]), vertical_align = :middle, style = file_style)
-                                    )
-                                )
-                            ), ANCHO_CONT_CHICO, ALTO_CONT_SUP),
 
-                            # -------------------------
-                            # Bloque Actividades
-                            # -------------------------
-                            FixedSize(Container(
-                                Column(
-                                    Fugl.Text("Actividades", horizontal_align = :left, style = header_style),
-                                    IntrinsicRow(
-                                        FixedSize(
-                                            IconButton(
-                                                im,
-                                                on_click = leeract,
-                                                container_style = normal_style,
-                                                hover_style = hover_style,
-                                                pressed_style = pressed_style,
-                                                interaction_state = button2_interaction[],
-                                                on_interaction_state_change = (new_state) -> button2_interaction[] = new_state
+                                            FixedSize(
+                                                IntrinsicRow(
+                                                    FixedSize(
+                                                        IconButton(
+                                                            im,
+                                                            on_click = leeresc,
+                                                            container_style = normal_style,
+                                                            hover_style = hover_style,
+                                                            pressed_style = pressed_style,
+                                                            interaction_state = button1_interaction[],
+                                                            on_interaction_state_change =
+                                                                (new_state) -> button1_interaction[] = new_state
+                                                        ),
+                                                        ANCHO_BTN_IM,
+                                                        ALTO_BTN_IM
+                                                    ),
+
+                                                    Fugl.Text(
+                                                        ruta_corta(esc[]),
+                                                        horizontal_align = :left,
+                                                        vertical_align = :middle,
+                                                        wrap_text = false,
+                                                        style = file_style
+                                                    );
+
+                                                    spacing = 12.0
+                                                ),
+                                                ANCHO_CONT_CHICO,
+                                                ALTO_BTN_IM
+                                            );
+
+                                            spacing = 12.0
+                                        )
+                                    ),
+                                    ANCHO_CONT_CHICO,
+                                    ALTO_CONT_SUP
+                                ),
+
+                                # ------------------------------------------------
+                                # Bloque Actividades
+                                # ------------------------------------------------
+                                FixedSize(
+                                    Container(
+                                        IntrinsicColumn(
+                                            Fugl.Text(
+                                                "Actividades",
+                                                horizontal_align = :left,
+                                                style = header_style
                                             ),
-                                            ANCHO_BTN_IM,
-                                            ALTO_BTN_IM
-                                        ),
-                                        Fugl.Text(ruta_corta(act[]), vertical_align = :middle, style = file_style)
-                                    )
-                                )
-                            ), ANCHO_CONT_CHICO, ALTO_CONT_SUP)
-                        )
-                    ), ANCHO_CONT, ALTO_CONT_SUP),
 
-                    HLine(style = SeparatorStyle(
-                        line_width = 2.0f0,
-                        color = Vec4{Float32}(0.2f0, 0.2f0, 0.2f0, 1.0f0)
-                    )),
+                                            FixedSize(
+                                                IntrinsicRow(
+                                                    FixedSize(
+                                                        IconButton(
+                                                            im,
+                                                            on_click = leeract,
+                                                            container_style = normal_style,
+                                                            hover_style = hover_style,
+                                                            pressed_style = pressed_style,
+                                                            interaction_state = button2_interaction[],
+                                                            on_interaction_state_change =
+                                                                (new_state) -> button2_interaction[] = new_state
+                                                        ),
+                                                        ANCHO_BTN_IM,
+                                                        ALTO_BTN_IM
+                                                    ),
+
+                                                    Fugl.Text(
+                                                        ruta_corta(act[]),
+                                                        horizontal_align = :left,
+                                                        vertical_align = :middle,
+                                                        wrap_text = false,
+                                                        style = file_style
+                                                    );
+
+                                                    spacing = 12.0
+                                                ),
+                                                ANCHO_CONT_CHICO,
+                                                ALTO_BTN_IM
+                                            );
+
+                                            spacing = 12.0
+                                        )
+                                    ),
+                                    ANCHO_CONT_CHICO,
+                                    ALTO_CONT_SUP
+                                );
+
+                                spacing = 12.0
+                            )
+                        ),
+                        ANCHO_CONT,
+                        ALTO_CONT_SUP
+                    ),
 
                     # ============================================================
                     # BLOQUE PREPROCESAMIENTO
@@ -272,43 +382,47 @@ const ANCHO_ESTADO = 45
                                     style = header_style
                                 ),
 
-                                IntrinsicRow(
-                                    FixedSize(
-                                        TextButton(
-                                            "Preprocesar",
-                                            on_click = prepro,
-                                            container_style = normal_style,
-                                            hover_style = hover_style,
-                                            pressed_style = pressed_style,
-                                            interaction_state = button3_interaction[],
-                                            on_interaction_state_change =
-                                                (new_state) -> button3_interaction[] = new_state
+                                FixedSize(
+                                    IntrinsicRow(
+                                        FixedSize(
+                                            TextButton(
+                                                "Preprocesar",
+                                                on_click = prepro,
+                                                container_style = normal_style,
+                                                hover_style = hover_style,
+                                                pressed_style = pressed_style,
+                                                interaction_state = button3_interaction[],
+                                                on_interaction_state_change =
+                                                    (new_state) -> button3_interaction[] = new_state
+                                            ),
+                                            ANCHO_BTN_TXT,
+                                            ALTO_BTN_TXT
                                         ),
-                                        ANCHO_BTN_TXT,
-                                        ALTO_BTN_TXT
+
+                                        FixedSize(
+                                            Fugl.Text(
+                                                errpre[],
+                                                vertical_align = :middle,
+                                                style = err_style
+                                            ),
+                                            ANCHO_ESTADO,
+                                            ALTO_BTN_TXT
+                                        ),
+
+                                        FixedSize(
+                                            Fugl.Text(
+                                                okpre[],
+                                                vertical_align = :middle,
+                                                style = ok_style
+                                            ),
+                                            ANCHO_ESTADO,
+                                            ALTO_BTN_TXT
+                                        );
+
+                                        spacing = 10.0
                                     ),
-
-                                    FixedSize(
-                                        Fugl.Text(
-                                            errpre[],
-                                            vertical_align = :middle,
-                                            style = err_style
-                                        ),
-                                        ANCHO_ESTADO,
-                                        ALTO_BTN_TXT
-                                    ),
-
-                                    FixedSize(
-                                        Fugl.Text(
-                                            okpre[],
-                                            vertical_align = :middle,
-                                            style = ok_style
-                                        ),
-                                        ANCHO_ESTADO,
-                                        ALTO_BTN_TXT
-                                    );
-
-                                    spacing = 10.0
+                                    ANCHO_CONT,
+                                    ALTO_BTN_TXT
                                 ),
 
                                 Fugl.Text(
@@ -458,8 +572,13 @@ const ANCHO_ESTADO = 45
             )
         end
         Fugl.run(
-            entorno, title="Asignación",window_width_px=ANCHO_WIN,window_height_px=ALTO_WIN
+            entorno,
+            title = "Asignación",
+            window_width_points = ANCHO_WIN,
+            window_height_points = ALTO_WIN,
+            dpi_scaling = dpi_ref
         )
+        
         return nothing
     end
 
